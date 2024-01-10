@@ -11,7 +11,7 @@ export class PlayingRulesPage {
   constructor(private  router: Router) {}
 
   startHunting() {
-    this.router.navigate(['/getting-started']).then(
+    this.router.navigate(['./tabs/getting-started']).then(
       () => {
         console.log('Navigation to Introduction Page successful');
       },

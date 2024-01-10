@@ -12,7 +12,7 @@ export class HomePage {
 
   //navigate to intro pae
   goToIntroPage(){
-    this.router.navigate( ['/intro']).then(
+    this.router.navigate( ['./tabs/intro']).then(
       () => {
         console.log('Navigation to Introduction Page successful');
       },

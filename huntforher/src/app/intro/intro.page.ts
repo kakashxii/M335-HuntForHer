@@ -11,7 +11,7 @@ export class IntroPage {
   constructor(private  router: Router) {}
 
   goToRulesPage(){
-    this.router.navigate( ['/playing-rules']).then(
+    this.router.navigate( ['./tabs/playing-rules']).then(
       () => {
         console.log('Navigation to Introduction Page successful');
       },

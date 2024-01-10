@@ -23,6 +23,18 @@ export const routes: Routes = [
       {
         path: 'post-hunts',
         loadChildren: () => import("./../past-hunts/past-hunts.module").then( m => m.PastHuntsPageModule)
+      },
+      {
+        path: 'intro',
+        loadChildren: () => import('./../intro/intro.module').then(m => m.IntroPageModule)
+      },
+      {
+        path: 'playing-rules',
+        loadChildren: () => import('./../playing-rules/playing-rules.module').then(m => m.PlayingRulesPageModule)
+      },
+      {
+        path: 'getting-started',
+        loadChildren: () => import('./../getting-started/getting-started.module').then(m => m.GettingStartedPageModule)
       }
     ],
   },
