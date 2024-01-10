@@ -21,7 +21,11 @@ const routes: Routes = [
   {
     path: 'past-hunts',
     loadChildren: () => import('./past-hunts/past-hunts.module').then( m => m.PastHuntsPageModule)
+  },  {
+    path: 'playing-rules',
+    loadChildren: () => import('./playing-rules/playing-rules.module').then( m => m.PlayingRulesPageModule)
   },
+
 
 ];
 
