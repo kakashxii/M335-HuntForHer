@@ -14,7 +14,13 @@ const routes: Routes = [
   {
     path: 'intro',
     loadChildren: () => import('./intro/intro.module').then( m => m.IntroPageModule)
-  },{
+  },
+  {
+  path: 'playing-rules',
+  loadChildren: () => import('./playing-rules/playing-rules.module').then( m => m.PlayingRulesPageModule)
+},
+
+  {
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
   },
