@@ -1,10 +1,10 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar style="background-color: #752f51;">
     <ion-title>Playing Rules</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" style="background-color: #b893b5; display: flex; flex-direction: column; justify-content: center; align-items: center;">
   <h2>Exercise Rules:</h2>
   <ul>
     <li>Perform the specified exercises promptly to earn the full money reward.</li>
@@ -19,13 +19,13 @@
 
   <p>After you finish the game, the money you collected will be funded to those suffering from breast cancer.</p>
 
-  <ion-button expand="block" >Start Hunting</ion-button>
+  <div style="width: 100%; display: flex; justify-content: center;">
+    <ion-button (click)="startHunting()" color="danger" class="custom-button">View playing rules</ion-button>
+  </div>
 </ion-content>
 
-
-
 <ion-footer class="ion-no-border">
-  <ion-toolbar>
+  <ion-toolbar style="background-color: #b893b5; color: #752f51;">
     <ion-tabs>
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="home" href="/tabs/home">
