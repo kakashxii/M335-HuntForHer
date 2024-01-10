@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-intro',
   templateUrl: './intro.page.html',
   styleUrls: ['./intro.page.scss'],
 })
-export class IntroPage implements OnInit {
+export class IntroPage {
 
-  constructor() { }
+  constructor(private  router: Router) {}
 
-  ngOnInit() {
+  goToRulesPage(){
+    this.router.navigate( ['/playing-rules']).then(
+      () => {
+        console.log('Navigation to Introduction Page successful');
+      },
+      (error) => {
+        console.error('Navigation to Introduction Page failed')
+      }
+    );
   }
-
 }
