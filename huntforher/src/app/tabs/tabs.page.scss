@@ -1,0 +1,25 @@
+
+ion-tab-bar {
+  --background: #b893b5;
+}
+
+ion-tab-button {
+  color: white;
+}
+
+.custom-button {
+  --background: #b893b5;
+  --color: white;
+  --border-style: none;
+  --padding-start: 30px;
+  --padding-end: 30px;
+  --border-radius: 30px;
+  --margin-top: 30px;
+  --cursor: pointer;
+  --transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+  --background: #e55d6a; /* Color change on hover */
+}
+
