@@ -1,3 +1,8 @@
+ion-header.top ion-toolbar {
+  --background: #9e3367; /* Set your desired header color here */
+  color: white; /* Set the text color for the header */
+}
+
 ion-content.background {
   background-color: #f0dae5;
   display: flex;
@@ -9,7 +14,7 @@ ion-content.background {
 }
 
 ion-content.background .intro {
-  color: black;
+  color: #752f51;
   font-size: 24px;
   font-weight: bold;
   font-family: 'Arial', sans-serif;
@@ -44,11 +49,7 @@ ion-content.background .cta-button:hover {
 }
 
 ion-tab-bar {
-  --background: #b34479;
-}
-
-ion-header {
-  --background: #b34479;
+  --background: #b893b5;
 }
 
 ion-tab-button {
