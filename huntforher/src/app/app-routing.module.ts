@@ -10,12 +10,11 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },  {
-<<<<<<< HEAD
+  },
+  {
     path: 'intro',
     loadChildren: () => import('./intro/intro.module').then( m => m.IntroPageModule)
-  },
-=======
+  },{
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
   },
@@ -23,7 +22,6 @@ const routes: Routes = [
     path: 'past-hunts',
     loadChildren: () => import('./past-hunts/past-hunts.module').then( m => m.PastHuntsPageModule)
   },
->>>>>>> a98d068973c6a3be18f1d163959b79132d1d89a6
 
 ];
 
