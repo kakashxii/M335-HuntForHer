@@ -1,38 +1,36 @@
-.background {
-  --background: url('../../assets/background.jpg') no-repeat center center fixed;
+ion-content.background {
+  --background: url('../../assets/background0.jpg') no-repeat center center fixed;
   background-size: cover;
-}
-
-.logo-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 70%;
-  margin-bottom: 20px;
+  justify-content: center;
+  text-align: center;
+  height: 100vh; /* 100% der Bildschirmhöhe verwenden */
 }
 
-.logo-container img {
-  max-width: 90%;
-  max-height: 100%;
-}
-.intro {
-  text-align: center;
-  font-style: italic;
+ion-content.background .intro {
   color: black;
-  margin-top: auto;
   font-size: 24px;
   font-weight: bold;
   font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%; /* 100% der Bildschirmhöhe verwenden */
+
 }
 
 /* Responsive Schriftgröße anpassen */
 @media screen and (max-width: 768px) {
-  .intro {
+  ion-content.background .intro {
     font-size: 18px; /* Anpassung der Schriftgröße für kleinere Bildschirme */
   }
 }
 
-.cta-button {
+ion-content.background .cta-button {
   background-color: #b893b5;
   color: white;
   border: none;
@@ -43,6 +41,6 @@
   transition: background-color 0.3s ease;
 }
 
-.cta-button:hover {
+ion-content.background .cta-button:hover {
   background-color: #e55d6a; /* Farbwechsel bei Hover */
 }
