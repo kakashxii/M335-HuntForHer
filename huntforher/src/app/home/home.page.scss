@@ -44,3 +44,11 @@ ion-content.background .cta-button {
 ion-content.background .cta-button:hover {
   background-color: #e55d6a; /* Farbwechsel bei Hover */
 }
+
+ion-tab-bar {
+  --background: #b893b5;
+}
+
+ion-tab-button {
+  color: white;
+}
