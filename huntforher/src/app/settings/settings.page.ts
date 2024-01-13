@@ -1,9 +1,8 @@
 // settings.page.ts
 import { Component } from '@angular/core';
-import { Plugins, Capacitor } from '@capacitor/core';
-import { AlertController, NavController } from '@ionic/angular';
-
-const { Geolocation, Storage } = Plugins;
+import { Geolocation, PositionOptions } from '@capacitor/geolocation';
+import { Camera } from '@capacitor/camera';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -11,51 +10,59 @@ const { Geolocation, Storage } = Plugins;
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage {
-  cameraPermission = false;
-  locationPermission = false;
+  locationPermissionGranted: boolean = false;
+  cameraPermissionGranted: boolean = false;
 
-  constructor(
-    private alertController: AlertController,
-    private navCtrl: NavController
-  ) {}
+  constructor(private router: Router) {}
 
-  async startGame() {
-    if (await this.checkPermissions()) {
-      this.navigateToPingPongExercise();
-    } else {
-      this.showPermissionDeniedAlert();
+  async checkLocationPermission() {
+    try {
+      const permissionStatus = await Geolocation.checkPermissions();
+      console.log('Location permission status:', permissionStatus.location);
+
+      if (permissionStatus?.location !== 'granted') {
+        const requestStatus = await Geolocation.requestPermissions();
+
+        if (requestStatus.location !== 'granted') {
+          // Go to location settings
+          this.locationPermissionGranted = false;
+          return;
+        }
+      }
+
+      this.locationPermissionGranted = true;
+    } catch (e) {
+      console.error('Error checking location permission:', e);
     }
   }
 
-  async checkPermissions() {
-    // Check permissions for image storage
-    const imagePermissionResult = await (Storage as any).requestPermissions();
-    this.cameraPermission = imagePermissionResult.photos === 'granted';
+  async checkCameraPermission() {
+    try {
+      const cameraPermissionStatus = await Camera.checkPermissions();
+      console.log('Camera permission status:', cameraPermissionStatus.camera);
 
-    // Check permissions for geolocation
-    if (Capacitor.isNative) {
-      const geolocationPermissionResult = await (Geolocation as any).checkPermissions();
-      this.locationPermission = geolocationPermissionResult.state === 'granted';
-    } else {
-      // Handle non-native environment (e.g., browser) as needed
-      console.warn('Geolocation not supported in a non-native environment.');
-      this.locationPermission = false;
+      if (cameraPermissionStatus?.camera !== 'granted') {
+        const requestStatus = await Camera.requestPermissions();
+
+        if (requestStatus.camera !== 'granted') {
+          // Go to camera settings
+          this.cameraPermissionGranted = false;
+          return;
+        }
+      }
+
+      this.cameraPermissionGranted = true;
+    } catch (e) {
+      console.error('Error checking camera permission:', e);
     }
-
-    return this.cameraPermission && this.locationPermission;
   }
 
-  async showPermissionDeniedAlert() {
-    const alert = await this.alertController.create({
-      header: 'Permissions Required',
-      message: 'Please grant the app the necessary permissions in the settings.',
-      buttons: ['OK']
-    });
+  startGame() {
 
-    await alert.present();
-  }
-
-  navigateToPingPongExercise() {
-    this.navCtrl.navigateForward('/tabs/pinpong-exercise');
+    if (this.locationPermissionGranted && this.cameraPermissionGranted) {
+      this.router.navigate(['/tabs/pinpong-exercise']);
+    } else {
+      console.log('Not all permissions granted. Game cannot be started.');
+    }
   }
 }
