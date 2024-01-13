@@ -35,7 +35,11 @@ export const routes: Routes = [
       {
         path: 'getting-started',
         loadChildren: () => import('./../getting-started/getting-started.module').then(m => m.GettingStartedPageModule)
-      }
+      },
+      {
+        path: 'pinpong-exercise',
+        loadChildren: () => import('./../pinpong-exercise/pinpong-exercise.module').then( m => m.PinpongExercisePageModule)
+      },
     ],
   },
   {

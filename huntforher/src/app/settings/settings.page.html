@@ -1,13 +1,25 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>settings</ion-title>
+<!-- settings.page.html -->
+<ion-header>
+  <ion-toolbar style="background-color: #752f51;">
+    <ion-title>Settings</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">settings</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding" style="background-color: #b893b5; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+  <h2>Permissions</h2>
+
+  <!-- Camera Permission Checkbox -->
+  <ion-checkbox [(ngModel)]="cameraPermission">Allow Camera</ion-checkbox>
+
+  <!-- Location Permission Checkbox -->
+  <ion-checkbox [(ngModel)]="locationPermission">Allow Location</ion-checkbox>
+
+  <!-- Start Game Button -->
+  <ion-button [disabled]="!cameraPermission || !locationPermission" (click)="startGame()" color="danger" class="custom-button">Start Game</ion-button>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar style="background-color: #b893b5; color: #752f51;">
+    <ion-tabs></ion-tabs>
+  </ion-toolbar>
+</ion-footer>
