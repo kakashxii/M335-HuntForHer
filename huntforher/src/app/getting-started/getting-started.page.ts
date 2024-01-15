@@ -24,7 +24,11 @@ export class GettingStartedPage implements OnInit {
         {
           text: 'OK',
           handler: (data) => {
-            this.navigateToSettings(data.name); // Pass the name to the navigateToSettings method
+            if (data.name && data.name.trim() !== '') {
+              this.navigateToSettings(data.name); // Pass the name to the navigateToSettings method
+            } else {
+              this.showErrorAlert('Name is required. Please enter your name.');
+            }
           }
         }
       ],
@@ -63,6 +67,14 @@ export class GettingStartedPage implements OnInit {
 
     // Navigate to the Settings page
     this.navigateToSettingsPage();
+  }
+
+  showErrorAlert(message: string) {
+    this.alertController.create({
+      header: 'Error',
+      message: message,
+      buttons: ['OK']
+    }).then(alert => alert.present());
   }
 
   navigateToSettingsPage() {
