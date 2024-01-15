@@ -16,7 +16,7 @@
         <ion-button id="back-button">Zurück</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button id="next-button" [disabled]="!isNextButtonEnabled">Weiter</ion-button>
+        <ion-button id="next-button" (click)="doneButton()" [disabled]="!isNextButtonEnabled">Weiter</ion-button>
       </ion-col>
     </ion-row>
   </div>

@@ -1,5 +1,6 @@
 import { Network, ConnectionStatus } from '@capacitor/network';
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-exercise-wlan',
@@ -10,7 +11,7 @@ export class ExerciseWlanPage implements OnInit {
   isWifiConnected: boolean = false;
   isNextButtonEnabled: boolean = false;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.startNetworkListener();
@@ -32,5 +33,10 @@ export class ExerciseWlanPage implements OnInit {
     // Überwache den Netzwerkstatus und setze die Variable entsprechend
     this.isWifiConnected = status.connected && status.connectionType === 'wifi';
     this.isNextButtonEnabled = this.isWifiConnected;
+  }
+
+
+  doneButton() {
+    this.router.navigate(['/tabs/load-exercise']);
   }
 }

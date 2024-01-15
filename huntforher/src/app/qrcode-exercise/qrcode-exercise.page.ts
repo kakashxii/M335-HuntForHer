@@ -30,7 +30,7 @@ export class QrcodeExercisePage {
   }
 
   doneButton() {
-    this.router.navigate(['/tabs/steps-exercise']);
+    this.router.navigate(['/tabs/exercise-turnphone']);
   }
 }
 

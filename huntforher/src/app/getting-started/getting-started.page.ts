@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router'; // Import Router
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-getting-started',
   templateUrl: './getting-started.page.html',
   styleUrls: ['./getting-started.page.scss'],
 })
-export class GettingStartedPage {
+export class GettingStartedPage implements OnInit {
 
   name: string = '';
 
   constructor(private alertController: AlertController, private router: Router) { }
+
+  ngOnInit() {
+    // Hier kannst du Initialisierungen vornehmen, wenn nötig
+  }
 
   async startGame() {
     const alert = await this.alertController.create({
@@ -21,7 +25,7 @@ export class GettingStartedPage {
           text: 'OK',
           handler: (data) => {
             // Handle data if needed
-            this.navigateToSettings(); // Call the method to navigate to the Settings page
+            this.navigateToSettings();
           }
         }
       ],
@@ -34,15 +38,14 @@ export class GettingStartedPage {
     await alert.present();
   }
 
-  // Method to navigate to the Settings page
-   navigateToSettings() {
-     this.router.navigate(['./tabs/settings']).then(
-       () => {
-         console.log('Navigation to Introduction Page successful');
-       },
-       (error) => {
-         console.error('Navigation to Introduction Page failed')
-
-       }
-     )}
-   }
+  navigateToSettings() {
+    this.router.navigate(['./tabs/settings']).then(
+      () => {
+        console.log('Navigation to Settings Page successful');
+      },
+      (error) => {
+        console.error('Navigation to Settings Page failed', error);
+      }
+    );
+  }
+}
