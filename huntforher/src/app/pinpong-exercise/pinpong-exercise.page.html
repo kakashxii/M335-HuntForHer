@@ -1,4 +1,3 @@
-
 <!-- pinpong-exercise.page.html -->
 <ion-header>
   <ion-toolbar>
@@ -8,7 +7,7 @@
 
 <ion-content>
   <p>Navigate through the coordinates provided, charting a path that leads to important
-    locantions in the quest for breast cancer awareness</p>
+    locations in the quest for breast cancer awareness</p>
   <h2>🏓 Walk to the ping pong table</h2>
   <ion-card>
     <ion-card-content *ngIf="currentLocation">
@@ -27,4 +26,12 @@
   </ion-card>
   <!-- Done Button -->
   <ion-button (click)="doneButton()" color="danger" class="custom-button">Done</ion-button>
+
+  <!-- Reward Information -->
+  <p *ngIf="collectedWallets === 0 && collectedRibbons === 0">
+    💰 Collect up to 2 Money Bags
+  </p>
+  <p *ngIf="collectedWallets === 0 && collectedRibbons === 0">
+    🎀 Collect up to 1 Ribbon
+  </p>
 </ion-content>
