@@ -1,46 +1,58 @@
-/* Global styles */
-ion-content {
-  --ion-background-color: #f4f4f4;
+ion-header.top ion-toolbar {
+  --background: #9e3367; /* Set your desired header color here */
+  color: white; /* Set the text color for the header */
 }
 
-/* Page-specific styles */
-ion-title {
-  font-size: 2em;
+ion-content.background {
+  background-color: #f0dae5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh; /* Use 100% of the screen height */
 }
 
-ion-title[size="large"] {
-  font-size: 1.5em;
+ion-content.background .intro {
+  color: #752f51;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #f0dae5;
+  height: 100%; /* Use 100% of the screen height */
 }
 
-ion-item {
-  margin-bottom: 20px;
+/* Responsive font size adjustment */
+@media screen and (max-width: 768px) {
+  ion-content.background .intro {
+    font-size: 18px; /* Adjust font size for smaller screens */
+  }
 }
 
-ion-label {
-  font-size: 1.2em;
-  margin-right: 10px;
-}
-
-ion-text.task {
-  font-size: 1.2em;
-}
-
-ion-checkbox {
-  --background: #4caf50;
-  --border-color: #4caf50;
-}
-
-ion-button {
-  padding: 10px;
-  font-size: 1em;
-  cursor: pointer;
-  --background: #c55858;
-  color: #fff;
+ion-content.background .cta-button {
+  background-color: #b893b5;
+  color: white;
   border: none;
-  border-radius: 5px;
+  padding: 15px 30px;
+  border-radius: 30px;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-ion-button:disabled {
-  --background: #ccc;
-  cursor: not-allowed;
+ion-content.background .cta-button:hover {
+  background-color: #e55d6a; /* Color change on hover */
+}
+
+ion-tab-bar {
+  --background: #b893b5;
+}
+
+ion-tab-button {
+  color: white;
 }

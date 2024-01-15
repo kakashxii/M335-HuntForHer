@@ -1,8 +1,13 @@
 <!-- exercise-connectwifi.page.html -->
+<ion-header class="top">
+  <ion-toolbar>
+    <ion-title>Connection</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true">
   <div class="ion-padding">
     <ion-item>
-      <ion-label>Beschreibung:</ion-label>
       <ion-text class="task">Verbinde dich mit dem WLAN</ion-text>
     </ion-item>
 
@@ -13,10 +18,7 @@
 
     <ion-row class="button-container">
       <ion-col>
-        <ion-button id="back-button">Zurück</ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button id="next-button" (click)="doneButton()" [disabled]="!isNextButtonEnabled">Weiter</ion-button>
+        <ion-button id="next-button" color="danger" (click)="doneButton()" [disabled]="!isNextButtonEnabled">Weiter</ion-button>
       </ion-col>
     </ion-row>
   </div>
