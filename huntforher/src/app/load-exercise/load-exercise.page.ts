@@ -31,6 +31,6 @@ export class LoadExercisePage implements OnInit {
 
   goToNextPage() {
     // Navigate to the next page
-    this.router.navigate(['/next-page']);
+    this.router.navigate(['/tabs/exercise-wlan']);
   }
 }

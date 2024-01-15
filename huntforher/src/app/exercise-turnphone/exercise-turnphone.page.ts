@@ -1,5 +1,6 @@
 import { Motion, OrientationListenerEvent } from '@capacitor/motion';
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-exercise-turnphone',
@@ -10,7 +11,7 @@ export class ExerciseTurnphonePage implements OnInit {
   isHeadTurned: boolean = false;
   isNextButtonEnabled: boolean = false;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.startOrientationListener();
@@ -32,5 +33,9 @@ export class ExerciseTurnphonePage implements OnInit {
         this.isNextButtonEnabled = false; // Deaktiviere den Next-Button
       }
     });
+  }
+
+  doneButton() {
+    this.router.navigate(['/tabs/load-exercise']);
   }
 }

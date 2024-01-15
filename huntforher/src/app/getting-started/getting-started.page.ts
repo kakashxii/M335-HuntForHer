@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -7,11 +7,15 @@ import { Router } from '@angular/router';
   templateUrl: './getting-started.page.html',
   styleUrls: ['./getting-started.page.scss'],
 })
-export class GettingStartedPage {
+export class GettingStartedPage implements OnInit {
 
   name: string = '';
 
-  constructor(private alertController: AlertController, private router: Router) { }
+  constructor(private alertController: AlertController, private router: Router) {}
+
+  ngOnInit() {
+    // Hier kannst du Initialisierungen vornehmen, wenn nötig
+  }
 
   async startGame() {
     const alert = await this.alertController.create({
@@ -58,6 +62,10 @@ export class GettingStartedPage {
     localStorage.setItem('allPastHunts', JSON.stringify(allPastHunts));
 
     // Navigate to the Settings page
+    this.navigateToSettingsPage();
+  }
+
+  navigateToSettingsPage() {
     this.router.navigate(['./tabs/settings']).then(
       () => {
         console.log('Navigation to Settings Page successful');
