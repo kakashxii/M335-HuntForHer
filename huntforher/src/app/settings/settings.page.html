@@ -8,13 +8,16 @@
 <ion-content class="ion-padding" style="background-color: #b893b5; display: flex; flex-direction: column; justify-content: center; align-items: center;">
   <h2>Permissions</h2>
   <!-- Camera Permission Checkbox -->
-  <ion-checkbox [(ngModel)]="cameraPermission">Allow Camera</ion-checkbox>
+  <ion-checkbox [(ngModel)]="cameraPermissionGrantedsPermission">Allow Camera</ion-checkbox>
 
   <!-- Location Permission Checkbox -->
-  <ion-checkbox [(ngModel)]="locationPermission">Allow Location</ion-checkbox>
+  <ion-checkbox (click)="checkLocationPermission()">Allow Location</ion-checkbox>
+
+  <!-- Camera Permission Checkbox -->
+  <ion-checkbox (click)="checkCameraPermission()">Allow Camera</ion-checkbox>
 
   <!-- Start Game Button -->
-  <ion-button [disabled]="!cameraPermission || !locationPermission" (click)="startGame()" color="danger" class="custom-button">Start Game</ion-button>
+  <ion-button [disabled]="!locationPermissionGranted || !cameraPermissionGranted" (click)="startGame()" color="danger" class="custom-button">Start Game</ion-button>
 </ion-content>
 
 <ion-footer class="ion-no-border">
