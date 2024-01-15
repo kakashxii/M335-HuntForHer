@@ -12,29 +12,36 @@ export class PinpongExercisePage implements OnInit {
   currentLocation: Position | undefined;
   distanceToPingPongTable: number | undefined;
 
+  watchPositionId: string | undefined;
+
   constructor(private router: Router) {}
 
   async ngOnInit() {
-    await this.getCurrentLocation();
+    await this.startWatchingPosition();
   }
 
-  async getCurrentLocation() {
-    try {
-      const options: PositionOptions = {
-        maximumAge: 3000,
-        timeout: 10000,
-        enableHighAccuracy: true
-      };
+  async startWatchingPosition() {
+    const watchOptions: PositionOptions = {
+      maximumAge: 3000,
+      timeout: 10000,
+      enableHighAccuracy: true
+    };
 
-      this.currentLocation = await Geolocation.getCurrentPosition(options);
-      console.log('Current Position:', this.currentLocation);
-      this.calculateDistance();
+    try {
+      this.watchPositionId = await Geolocation.watchPosition(watchOptions, async (position, err) => {
+        if (err) {
+          console.error('Error watching position:', err);
+        } else {
+          this.currentLocation = position || undefined;
+          await this.calculateDistance();
+        }
+      });
     } catch (error) {
-      console.error('Error getting current location:', error);
+      console.error('Error starting watch position:', error);
     }
   }
 
-  calculateDistance() {
+  async calculateDistance() {
     if (this.currentLocation) {
       const distance = this.haversineDistance(
         {
@@ -50,7 +57,7 @@ export class PinpongExercisePage implements OnInit {
   }
 
   haversineDistance(coords1: { latitude: number; longitude: number }, coords2: { latitude: number; longitude: number }): number {
-    const R = 6371e3; // Earth's radius in meters
+    const R = 6371000; // Earth's radius in meters
     const lat1Rad = coords1.latitude * (Math.PI / 180);
     const lat2Rad = coords2.latitude * (Math.PI / 180);
     const deltaLat = (coords2.latitude - coords1.latitude) * (Math.PI / 180);
@@ -68,6 +75,11 @@ export class PinpongExercisePage implements OnInit {
   }
 
   doneButton() {
+    // Stop watching the position when done
+    if (this.watchPositionId) {
+      Geolocation.clearWatch({ id: this.watchPositionId });
+    }
+
     this.router.navigate(['/tabs/steps-exercise']);
   }
 }
