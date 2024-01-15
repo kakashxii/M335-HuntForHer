@@ -54,6 +54,11 @@ export const routes: Routes = [
         path: 'exercise-turnphone',
         loadChildren: () => import('./../exercise-turnphone/exercise-turnphone.module').then( m => m.ExerciseTurnphonePageModule)
       },
+
+      {
+        path: 'qrcode-exercise',
+        loadChildren: () => import('./../qrcode-exercise/qrcode-exercise.module').then( m => m.QrcodeExercisePageModule)
+      },
     ],
   },
   {

@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>QR Code Challenge: Journey for a Cure</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p>Embark on a mission to raise funds for breast cancer awareness by completing the following QR Code challenge.</p>
+  <h2>📷 Scan the QR Code</h2>
+  <ion-card>
+    <ion-card-content>
+      <p>Point your camera at the QR code and capture it</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-button (click)="scanQRCode()" color="primary" class="custom-button">Scan QR Code</ion-button>
+  <ion-card *ngIf="scannedQRCodeContent">
+    <ion-card-header>
+      <ion-card-title>Scanned QR Code Content</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ scannedQRCodeContent }}</p>
+    </ion-card-content>
+  </ion-card>
+  <!-- Done Button -->
+  <ion-button (click)="doneButton()" color="danger" class="custom-button">Done</ion-button>
+</ion-content>

@@ -58,11 +58,7 @@ export class SettingsPage {
   }
 
   startGame() {
-
-    if (this.locationPermissionGranted && this.cameraPermissionGranted) {
       this.router.navigate(['/tabs/pinpong-exercise']);
-    } else {
-      console.log('Not all permissions granted. Game cannot be started.');
-    }
+
   }
 }
