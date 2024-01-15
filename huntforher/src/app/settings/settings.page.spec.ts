@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { SettingsPage } from './settings.page';
 
 describe('SettingsPage', () => {
@@ -6,9 +6,13 @@ describe('SettingsPage', () => {
   let fixture: ComponentFixture<SettingsPage>;
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(SettingsPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({
+      declarations: [SettingsPage],
+    }).compileComponents().then(() => {
+      fixture = TestBed.createComponent(SettingsPage);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
   }));
 
   it('should create', () => {

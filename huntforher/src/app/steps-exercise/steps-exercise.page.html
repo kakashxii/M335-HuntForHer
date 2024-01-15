@@ -8,6 +8,15 @@
   <div class="intro">
     <p>Embark on a purposeful journey to show support for breast cancer awareness by completing a meaningful walk to designated coordinates.</p>
     <h2>🚶🏻‍♀️Walk 2 meters</h2>
-<!--    <ion-button expand="block" (click)="goToRulesPage()" color="danger" class="custom-button">View playing rules</ion-button>-->
+
+    <!-- Display the real-time distance -->
+    <div *ngIf="distanceTraveled !== null">
+      <p>Distance Traveled: {{ distanceTraveled.toFixed(2) }} meters</p>
+    </div>
+
+    <!-- Add other content as needed -->
+
+    <!-- Button to stop the exercise -->
+    <ion-button expand="block" (click)="stopExercise()" color="danger" class="custom-button">Next Exercise</ion-button>
   </div>
 </ion-content>
