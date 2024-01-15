@@ -9,9 +9,7 @@ import { Router } from '@angular/router';
 })
 export class StepsExercisePage implements OnInit {
   private startPosition: Position | null = null;
-  private startTime: number | null = null;
   public distanceTraveled: number = 0;
-  public timeTaken: number = 0;
   private watchId: string | undefined;
 
   constructor(private router: Router) {}
@@ -25,7 +23,6 @@ export class StepsExercisePage implements OnInit {
     const position = await Geolocation.getCurrentPosition();
     if (position) {
       this.startPosition = position;
-      this.startTime = new Date().getTime();
 
       // Watch for position changes
       const watchOptions: PositionOptions = { enableHighAccuracy: true };
@@ -71,20 +68,11 @@ export class StepsExercisePage implements OnInit {
       Geolocation.clearWatch({ id: this.watchId });
     }
 
-    // Calculate time taken
-    if (this.startTime) {
-      const endTime = new Date().getTime();
-      this.timeTaken = (endTime - this.startTime) / 1000; // Convert to seconds
-
-      console.log('Time taken:', this.timeTaken);
-
-      // Navigate to another page or perform further actions here
-      this.router.navigate(['/tabs/qrcode-exercise'], {
-        state: {
-          distanceTraveled: this.distanceTraveled,
-          timeTaken: this.timeTaken,
-        },
-      });
-    }
+    // Navigate to another page or perform further actions here
+    this.router.navigate(['/tabs/qrcode-exercise'], {
+      state: {
+        distanceTraveled: this.distanceTraveled,
+      },
+    });
   }
 }
