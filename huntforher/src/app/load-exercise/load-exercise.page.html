@@ -8,17 +8,10 @@
   <div class="intro">
     <p>Every charge of your phone becomes a symbolic gesture, powering your device to continue supporting breast cancer awareness.</p>
 
-    <!-- Display the device and battery information -->
-    <div *ngIf="deviceInfo">
-      <p>Device Model: {{ deviceInfo.model }}</p>
-      <p>Platform: {{ deviceInfo.platform }}</p>
-      <p>OS Version: {{ deviceInfo.osVersion }}</p>
-      <!-- Add more information as needed -->
-    </div>
-
-    <!-- Add any other content or styling you need -->
+    <!-- Checkbox to indicate whether the phone is charging -->
+    <ion-checkbox disabled [(ngModel)]="isCharging">Phone is connected to charger</ion-checkbox>
 
     <!-- Button to navigate to the next page -->
-    <ion-button expand="block" (click)="goToNextPage()" color="danger" class="custom-button">Next Exercise</ion-button>
+    <ion-button expand="block" [disabled]="!isCharging" (click)="goToNextPage()" color="danger" class="custom-button">Next Exercise</ion-button>
   </div>
 </ion-content>
