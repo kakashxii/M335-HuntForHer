@@ -40,14 +40,11 @@ export const routes: Routes = [
         path: 'pinpong-exercise',
         loadChildren: () => import('./../pinpong-exercise/pinpong-exercise.module').then( m => m.PinpongExercisePageModule)
       },
-<<<<<<< HEAD
-
       {
         path: 'steps-exercise',
         loadChildren: () => import('./../steps-exercise/steps-exercise.module').then( m => m.StepsExercisePageModule)
       },
 
-=======
       {
         path: 'exercise-wlan',
         loadChildren: () => import('./../exercise-wlan/exercise-wlan.module').then( m => m.ExerciseWlanPageModule)
@@ -56,7 +53,6 @@ export const routes: Routes = [
         path: 'exercise-turnphone',
         loadChildren: () => import('./../exercise-turnphone/exercise-turnphone.module').then( m => m.ExerciseTurnphonePageModule)
       },
->>>>>>> ea031f6d162271f626e8f2faed84a619dcfa9351
     ],
   },
   {
