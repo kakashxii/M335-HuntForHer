@@ -54,6 +54,10 @@ export const routes: Routes = [
         path: 'exercise-turnphone',
         loadChildren: () => import('./../exercise-turnphone/exercise-turnphone.module').then( m => m.ExerciseTurnphonePageModule)
       },
+      {
+        path: 'load-exercise',
+        loadChildren: () => import('./../load-exercise/load-exercise.module').then( m => m.LoadExercisePageModule)
+      },
     ],
   },
   {

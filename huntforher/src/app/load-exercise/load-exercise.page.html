@@ -1,13 +1,24 @@
-<ion-header [translucent]="true">
+<ion-header class="top">
   <ion-toolbar>
-    <ion-title>load-exercise</ion-title>
+    <ion-title>Load the hope</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">load-exercise</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="background">
+  <div class="intro">
+    <p>Every charge of your phone becomes a symbolic gesture, powering your device to continue supporting breast cancer awareness.</p>
+
+    <!-- Display the device and battery information -->
+    <div *ngIf="deviceInfo">
+      <p>Device Model: {{ deviceInfo.model }}</p>
+      <p>Platform: {{ deviceInfo.platform }}</p>
+      <p>OS Version: {{ deviceInfo.osVersion }}</p>
+      <!-- Add more information as needed -->
+    </div>
+
+    <!-- Add any other content or styling you need -->
+
+    <!-- Button to navigate to the next page -->
+    <ion-button expand="block" (click)="goToNextPage()" color="danger" class="custom-button">Next Exercise</ion-button>
+  </div>
 </ion-content>

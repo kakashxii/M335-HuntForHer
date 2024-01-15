@@ -16,10 +16,8 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.routes').then( m => m.routes)
-  },  {
-    path: 'load-exercise',
-    loadChildren: () => import('./load-exercise/load-exercise.module').then( m => m.LoadExercisePageModule)
   },
+
 
 
 
