@@ -1,6 +1,6 @@
 import { Motion, OrientationListenerEvent } from '@capacitor/motion';
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-exercise-turnphone',
@@ -20,7 +20,7 @@ export class ExerciseTurnphonePage implements OnInit {
   startOrientationListener() {
     Motion.addListener('orientation', (event: OrientationListenerEvent) => {
       // Überwache die Ausrichtung des Geräts
-      const isUpsideDown = event.gamma > 170 || event.gamma < -170;
+      const isUpsideDown = event.gamma > 90 || event.gamma < -90;
 
       if (isUpsideDown) {
         // Das Gerät ist auf den Kopf gedreht
