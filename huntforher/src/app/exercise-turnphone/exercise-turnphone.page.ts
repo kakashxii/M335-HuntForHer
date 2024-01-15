@@ -1,4 +1,3 @@
-import { Motion, OrientationListenerEvent } from '@capacitor/motion';
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
@@ -18,21 +17,28 @@ export class ExerciseTurnphonePage implements OnInit {
   }
 
   startOrientationListener() {
-    Motion.addListener('orientation', (event: OrientationListenerEvent) => {
-      // Überwache die Ausrichtung des Geräts
-      const isUpsideDown = event.gamma > 90 || event.gamma < -90;
+    window.addEventListener('orientationchange', () => {
+      // Check if the device is in a portrait upside-down orientation
+      const isUpsideDown = window.matchMedia("(orientation: portrait-upside-down)").matches;
 
       if (isUpsideDown) {
-        // Das Gerät ist auf den Kopf gedreht
+        // The device is upside down
         this.isHeadTurned = true;
-        this.isNextButtonEnabled = true; // Aktiviere den Next-Button
-        // Hier kannst du weitere Aktionen ausführen, wenn das Gerät auf den Kopf gedreht wurde
+        this.isNextButtonEnabled = true; // Enable the Next button
+        // You can perform additional actions when the device is upside down
       } else {
-        // Das Gerät ist nicht auf den Kopf gedreht
+        // The device is not upside down
         this.isHeadTurned = false;
-        this.isNextButtonEnabled = false; // Deaktiviere den Next-Button
+        this.isNextButtonEnabled = false; // Disable the Next button
       }
     });
+
+    // Initial check when the page loads
+    const initialUpsideDown = window.matchMedia("(orientation: portrait-upside-down)").matches;
+    if (initialUpsideDown) {
+      this.isHeadTurned = true;
+      this.isNextButtonEnabled = true;
+    }
   }
 
   doneButton() {
