@@ -13,14 +13,15 @@
     </ion-card-content>
   </ion-card>
   <ion-button (click)="scanQRCode()" color="primary" class="custom-button">Scan QR Code</ion-button>
-  <ion-card *ngIf="scannedQRCodeContent">
+  <ion-card *ngIf="scannedResult">
     <ion-card-header>
-      <ion-card-title>Scanned QR Code Content</ion-card-title>
+      <p>Scanned QR Code Content</p>
     </ion-card-header>
     <ion-card-content>
-      <p>{{ scannedQRCodeContent }}</p>
+      <p>{{ scannedResult }}</p>
     </ion-card-content>
   </ion-card>
   <!-- Done Button -->
-  <ion-button (click)="doneButton()" color="danger" class="custom-button">Done</ion-button>
+  <!-- <ion-button (click)="doneButton()" color="danger" class="custom-button">Done</ion-button> -->
 </ion-content>
+

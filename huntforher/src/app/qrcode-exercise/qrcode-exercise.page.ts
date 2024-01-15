@@ -1,6 +1,6 @@
 // qrcode-exercise.page.ts
-import { Component } from '@angular/core';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Component, OnDestroy } from '@angular/core';
+import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,29 +8,52 @@ import { Router } from '@angular/router';
   templateUrl: './qrcode-exercise.page.html',
   styleUrls: ['./qrcode-exercise.page.scss'],
 })
-export class QrcodeExercisePage {
-  scannedQRCodeContent: string = ''; // Provide an initializer value
+export class QrcodeExercisePage implements OnDestroy {
+  qrCodeString = "M335@ICT-BZ";
+  scannedResult: any;
 
-  constructor(private router: Router) {}
+  constructor() {}
+
+  async checkPermission() {
+    const status = await BarcodeScanner.checkPermission({ force: true });
+    return status.granted;
+  }
+
+  catch(e: any) {
+    console.log(e);
+  }
 
   async scanQRCode() {
     try {
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: false,
-        resultType: CameraResultType.DataUrl,
-        source: CameraSource.Camera,
-      });
+      const permission = await this.checkPermission();
+      if (!permission) {
+        return;
+      }
 
-      // Set the scanned QR code text
-      this.scannedQRCodeContent = 'M335@ICT-BZ';
-    } catch (error) {
-      console.error('Error capturing image:', error);
+      await BarcodeScanner.hideBackground();
+      document.querySelector('body')?.classList.add('scanner-active');
+      const result = await BarcodeScanner.startScan();
+      console.log(result);
+
+      if (result?.hasContent) {
+        this.scannedResult = result.content;
+        BarcodeScanner.showBackground();
+        document.querySelector('body')?.classList.remove('scanner-active');
+        console.log(this.scannedResult);
+      }
+    } catch (e) {
+      console.log(e);
+      this.stopScan();
     }
   }
 
-  doneButton() {
-    this.router.navigate(['/tabs/exercise-turnphone']);
+  stopScan() {
+    BarcodeScanner.showBackground();
+    BarcodeScanner.stopScan();
+    document.querySelector('body')?.classList.remove('scanner-active');
+  }
+
+  ngOnDestroy() {
+    this.stopScan();
   }
 }
-
