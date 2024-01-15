@@ -12,29 +12,31 @@ export class StepsExercisePage implements OnInit {
   private startTime: number | null = null;
   public distanceTraveled: number = 0;
   public timeTaken: number = 0;
+  private watchId: string | undefined;
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
-    this.startExercise();
+  async ngOnInit() {
+    await this.startExercise();
   }
 
-  startExercise() {
+  async startExercise() {
     // Get initial position
-    Geolocation.getCurrentPosition().then((position: Position | null) => {
-      if (position) {
-        this.startPosition = position;
-        this.startTime = new Date().getTime();
+    const position = await Geolocation.getCurrentPosition();
+    if (position) {
+      this.startPosition = position;
+      this.startTime = new Date().getTime();
 
-        // Watch for position changes
-        const watchOptions: PositionOptions = { enableHighAccuracy: true };
-        const watchId = Geolocation.watchPosition(watchOptions, (position: Position | null, err) => {
-          if (position && this.startPosition) {
-            this.updateDistance(position);
-          }
-        });
-      }
-    });
+      // Watch for position changes
+      const watchOptions: PositionOptions = { enableHighAccuracy: true };
+      const watchId = await Geolocation.watchPosition(watchOptions, (position: Position | null, err) => {
+        if (position && this.startPosition) {
+          this.updateDistance(position);
+        }
+      });
+
+      this.watchId = watchId;
+    }
   }
 
   updateDistance(position: Position) {
@@ -63,8 +65,9 @@ export class StepsExercisePage implements OnInit {
 
   stopExercise() {
     // Stop watching position changes
-    // Make sure to handle the case where watchId is not defined in your actual code
-    // Geolocation.clearWatch({ id: watchId });
+    if (this.watchId) {
+      Geolocation.clearWatch({ id: this.watchId });
+    }
 
     // Calculate time taken
     if (this.startTime) {
