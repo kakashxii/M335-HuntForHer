@@ -1,13 +1,23 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>exercise-wlan</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<!-- exercise-connectwifi.page.html -->
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">exercise-wlan</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="ion-padding">
+    <ion-item>
+      <ion-label>Beschreibung:</ion-label>
+      <ion-text class="task">Verbinde dich mit dem WLAN</ion-text>
+    </ion-item>
+
+    <ion-item class="checkbox-container">
+      <ion-checkbox disabled [(ngModel)]="isWifiConnected"></ion-checkbox>
+      <ion-label>Mit WLAN verbunden</ion-label>
+    </ion-item>
+
+    <ion-row class="button-container">
+      <ion-col>
+        <ion-button id="back-button">Zurück</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button id="next-button" [disabled]="!isNextButtonEnabled">Weiter</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
 </ion-content>

@@ -1,13 +1,30 @@
-<ion-header [translucent]="true">
+
+<!-- pinpong-exercise.page.html -->
+<ion-header>
   <ion-toolbar>
-    <ion-title>pinpong-exercise</ion-title>
+    <ion-title>Navigating Support</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">pinpong-exercise</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <p>Navigate through the coordinates provided, charting a path that leads to important
+    locantions in the quest for breast cancer awareness</p>
+  <h2>🏓 Walk to the ping pong table</h2>
+  <ion-card>
+    <ion-card-content *ngIf="currentLocation">
+      <p>Latitude: {{ currentLocation.coords.latitude }}</p>
+      <p>Longitude: {{ currentLocation.coords.longitude }}</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Distance to Ping Pong Table</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p *ngIf="distanceToPingPongTable !== undefined">Distance: {{ distanceToPingPongTable.toFixed(2) }} km</p>
+      <p *ngIf="distanceToPingPongTable === undefined">Calculating distance...</p>
+    </ion-card-content>
+  </ion-card>
+  <!-- Done Button -->
+  <ion-button (click)="doneButton()" color="danger" class="custom-button">Done</ion-button>
 </ion-content>
