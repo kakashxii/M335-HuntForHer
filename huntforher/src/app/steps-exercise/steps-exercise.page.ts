@@ -72,7 +72,7 @@ export class StepsExercisePage implements OnInit {
       this.timeTaken = (endTime - this.startTime) / 1000; // Convert to seconds
 
       // You can navigate to another page or perform further actions here
-      this.router.navigate(['/tabs/past-hunts'], {
+      this.router.navigate(['/tabs/settings'], {
         state: {
           distanceTraveled: this.distanceTraveled,
           timeTaken: this.timeTaken,

@@ -40,10 +40,7 @@ export const routes: Routes = [
         path: 'pinpong-exercise',
         loadChildren: () => import('./../pinpong-exercise/pinpong-exercise.module').then( m => m.PinpongExercisePageModule)
       },
-<<<<<<< HEAD
 
-=======
->>>>>>> 6591bcf504f087cc2416be504c3d61d87a19ba9c
       {
         path: 'steps-exercise',
         loadChildren: () => import('./../steps-exercise/steps-exercise.module').then( m => m.StepsExercisePageModule)
