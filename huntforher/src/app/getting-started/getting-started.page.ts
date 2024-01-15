@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router'; // Import Router
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-getting-started',
@@ -15,13 +15,12 @@ export class GettingStartedPage {
 
   async startGame() {
     const alert = await this.alertController.create({
-      header: 'Please enter your info',
+      header: 'Please enter your name',
       buttons: [
         {
           text: 'OK',
           handler: (data) => {
-            // Handle data if needed
-            this.navigateToSettings(); // Call the method to navigate to the Settings page
+            this.navigateToSettings(data.name); // Pass the name to the navigateToSettings method
           }
         }
       ],
@@ -34,15 +33,38 @@ export class GettingStartedPage {
     await alert.present();
   }
 
-  // Method to navigate to the Settings page
-   navigateToSettings() {
-     this.router.navigate(['./tabs/settings']).then(
-       () => {
-         console.log('Navigation to Introduction Page successful');
-       },
-       (error) => {
-         console.error('Navigation to Introduction Page failed')
+  // Method to navigate to the Settings page and store name with date and time
+  navigateToSettings(name: string) {
+    const currentDate = new Date();
+    const dateTime = currentDate.toISOString();
 
-       }
-     )}
-   }
+    const userData = {
+      name: name,
+      dateTime: dateTime
+    };
+
+    // Retrieve existing past hunts from local storage
+    const allPastHuntsJson = localStorage.getItem('allPastHunts');
+    let allPastHunts: any[] = [];
+
+    if (allPastHuntsJson) {
+      allPastHunts = JSON.parse(allPastHuntsJson);
+    }
+
+    // Append the new user data to the array
+    allPastHunts.push(userData);
+
+    // Store the updated past hunts array in local storage
+    localStorage.setItem('allPastHunts', JSON.stringify(allPastHunts));
+
+    // Navigate to the Settings page
+    this.router.navigate(['./tabs/settings']).then(
+      () => {
+        console.log('Navigation to Settings Page successful');
+      },
+      (error) => {
+        console.error('Navigation to Settings Page failed', error);
+      }
+    );
+  }
+}
