@@ -12,15 +12,15 @@ export class QrcodeExercisePage implements OnDestroy {
   qrCodeString = "M335@ICT-BZ";
   scannedResult: any;
 
-  constructor() {}
+  constructor(private router: Router) {} // Inject Router here
 
   async checkPermission() {
     const status = await BarcodeScanner.checkPermission({ force: true });
     return status.granted;
   }
 
-  catch(e: any) {
-    console.log(e);
+  catchError(error: any) {
+    console.error(error);
   }
 
   async scanQRCode() {
@@ -35,14 +35,16 @@ export class QrcodeExercisePage implements OnDestroy {
       const result = await BarcodeScanner.startScan();
       console.log(result);
 
-      if (result?.hasContent) {
+      if (result.hasContent) {
         this.scannedResult = result.content;
-        BarcodeScanner.showBackground();
+        await BarcodeScanner.showBackground();
         document.querySelector('body')?.classList.remove('scanner-active');
         console.log(this.scannedResult);
+      } else {
+        console.warn('Scan canceled or no content found.');
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      this.catchError(error);
       this.stopScan();
     }
   }
@@ -55,5 +57,9 @@ export class QrcodeExercisePage implements OnDestroy {
 
   ngOnDestroy() {
     this.stopScan();
+  }
+
+  doneButton() {
+    this.router.navigate(['/tabs/exercise-turnphone']);
   }
 }

@@ -7,12 +7,15 @@
 <ion-content>
   <p>Embark on a mission to raise funds for breast cancer awareness by completing the following QR Code challenge.</p>
   <h2>📷 Scan the QR Code</h2>
+
   <ion-card>
     <ion-card-content>
       <p>Point your camera at the QR code and capture it</p>
     </ion-card-content>
   </ion-card>
+
   <ion-button (click)="scanQRCode()" color="primary" class="custom-button">Scan QR Code</ion-button>
+
   <ion-card *ngIf="scannedResult">
     <ion-card-header>
       <p>Scanned QR Code Content</p>
@@ -21,7 +24,5 @@
       <p>{{ scannedResult }}</p>
     </ion-card-content>
   </ion-card>
-  <!-- Done Button -->
-  <!-- <ion-button (click)="doneButton()" color="danger" class="custom-button">Done</ion-button> -->
+  <ion-button (click)="doneButton()" color="danger" class="custom-button">Done</ion-button>
 </ion-content>
-
