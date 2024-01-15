@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { WalkPageRoutingModule } from './walk-routing.module';
+import { StepsExercisePageRoutingModule } from './steps-exercise-routing.module';
 
-import { WalkPage } from './walk.page';
+import { StepsExercisePage } from './steps-exercise.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    WalkPageRoutingModule
+    StepsExercisePageRoutingModule
   ],
-  declarations: [WalkPage]
+  declarations: [StepsExercisePage]
 })
-export class WalkPageModule {}
+export class StepsExercisePageModule {}

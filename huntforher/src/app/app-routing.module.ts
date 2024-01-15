@@ -16,10 +16,9 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.routes').then( m => m.routes)
-  },  {
-    path: 'walk',
-    loadChildren: () => import('./walk/walk.module').then( m => m.WalkPageModule)
   },
+
+
 
 
 
