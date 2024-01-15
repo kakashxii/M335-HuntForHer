@@ -14,8 +14,8 @@ export class PinpongExercisePage implements OnInit {
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
-    this.getCurrentLocation();
+  async ngOnInit() {
+    await this.getCurrentLocation();
   }
 
   async getCurrentLocation() {
@@ -26,8 +26,8 @@ export class PinpongExercisePage implements OnInit {
         enableHighAccuracy: true
       };
 
-      const position = await Geolocation.getCurrentPosition(options);
-      this.currentLocation = position;
+      this.currentLocation = await Geolocation.getCurrentPosition(options);
+      console.log('Current Position:', this.currentLocation);
       this.calculateDistance();
     } catch (error) {
       console.error('Error getting current location:', error);
@@ -44,6 +44,7 @@ export class PinpongExercisePage implements OnInit {
         this.pingPongTableCoordinates
       );
 
+      console.log('Distance to Ping Pong Table:', distance);
       this.distanceToPingPongTable = distance;
     }
   }
