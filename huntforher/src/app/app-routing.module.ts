@@ -16,12 +16,26 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.routes').then( m => m.routes)
+<<<<<<< HEAD
   },
   {
     path: 'load-exercise',
     loadChildren: () => import('./load-exercise/load-exercise.module').then( m => m.LoadExercisePageModule)
   },
 
+=======
+  },
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 5ba1f6d8e3367895ed401b277f72600709a0abe9
 ];
 
 @NgModule({
