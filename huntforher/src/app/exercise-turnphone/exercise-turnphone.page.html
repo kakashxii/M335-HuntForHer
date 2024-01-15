@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Auf dem Kopf</ion-title>
+    <ion-title size="large">Mission 4</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-padding">
+
+
+    <ion-item>
+      <ion-label>Rundenzeit:</ion-label>
+      <ion-text id="round-time">{{ roundTime }}</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Gesamtzeit:</ion-label>
+      <ion-text id="total-time">{{ totalTime }}</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Beschreibung:</ion-label>
+      <ion-text class="task">Drehe das Gerät auf den Kopf</ion-text>
+    </ion-item>
+
+    <ion-item class="checkbox-container">
+      <ion-checkbox disabled [(ngModel)]="isHeadTurned"></ion-checkbox>
+      <ion-label>Auf dem Kopf</ion-label>
+    </ion-item>
+
+    <ion-row class="button-container">
+      <ion-col>
+        <ion-button id="back-button">Zurück</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button id="next-button" [disabled]="!isNextButtonEnabled">Weiter</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

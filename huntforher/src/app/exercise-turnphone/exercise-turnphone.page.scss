@@ -1,0 +1,46 @@
+/* Global styles */
+ion-content {
+  --ion-background-color: #f4f4f4;
+}
+
+/* Page-specific styles */
+ion-title {
+  font-size: 2em;
+}
+
+ion-title[size="large"] {
+  font-size: 1.5em;
+}
+
+ion-item {
+  margin-bottom: 20px;
+}
+
+ion-label {
+  font-size: 1.2em;
+  margin-right: 10px;
+}
+
+ion-text.task {
+  font-size: 1.2em;
+}
+
+ion-checkbox {
+  --background: #4caf50;
+  --border-color: #4caf50;
+}
+
+ion-button {
+  padding: 10px;
+  font-size: 1em;
+  cursor: pointer;
+  --background: #c55858;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+ion-button:disabled {
+  --background: #ccc;
+  cursor: not-allowed;
+}
