@@ -1,3 +1,4 @@
+import { Motion, OrientationListenerEvent } from '@capacitor/motion';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,40 +7,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./exercise-turnphone.page.scss'],
 })
 export class ExerciseTurnphonePage implements OnInit {
-
-  roundTime: string = '00:00';
-  totalTime: string = '00:00';
   isHeadTurned: boolean = false;
-  isBackButtonEnabled: boolean = false;
   isNextButtonEnabled: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
-    // Hier kannst du Initialisierungslogik hinzufügen, falls erforderlich
+    this.startOrientationListener();
   }
 
-  // Funktion zum Aktualisieren der Gesamtzeit
-  updateTotalTime(newTotalTime: string): void {
-    this.totalTime = newTotalTime;
-  }
+  startOrientationListener() {
+    Motion.addListener('orientation', (event: OrientationListenerEvent) => {
+      // Überwache die Ausrichtung des Geräts
+      const isUpsideDown = event.gamma > 170 || event.gamma < -170;
 
-  // Funktion zum Behandeln der Änderung des Checkbox-Zustands
-  handleCheckboxChange(): void {
-    // Implementiere hier deine Logik, wenn sich der Checkbox-Zustand ändert
-    // Zum Beispiel die Aktualisierung von isNextButtonEnabled basierend auf dem Checkbox-Zustand
-    this.isNextButtonEnabled = this.isHeadTurned;
-  }
-
-  // Funktion zum Behandeln des Klicks auf den Zurück-Button
-  handleBackButtonClick(): void {
-    // Implementiere hier deine Logik, wenn der Zurück-Button geklickt wird
-    // Zum Beispiel die Navigation zur vorherigen Aufgabe/Seite
-  }
-
-  // Funktion zum Behandeln des Klicks auf den Weiter-Button
-  handleNextButtonClick(): void {
-    // Implementiere hier deine Logik, wenn der Weiter-Button geklickt wird
-    // Zum Beispiel die Navigation zur nächsten Aufgabe/Seite
+      if (isUpsideDown) {
+        // Das Gerät ist auf den Kopf gedreht
+        this.isHeadTurned = true;
+        this.isNextButtonEnabled = true; // Aktiviere den Next-Button
+        // Hier kannst du weitere Aktionen ausführen, wenn das Gerät auf den Kopf gedreht wurde
+      } else {
+        // Das Gerät ist nicht auf den Kopf gedreht
+        this.isHeadTurned = false;
+        this.isNextButtonEnabled = false; // Deaktiviere den Next-Button
+      }
+    });
   }
 }
