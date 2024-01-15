@@ -1,5 +1,5 @@
 // settings.page.ts
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import { Geolocation, PositionOptions } from '@capacitor/geolocation';
 import { Camera } from '@capacitor/camera';
 import { Router } from '@angular/router';
@@ -13,12 +13,15 @@ export class SettingsPage {
   locationPermissionGranted: boolean = false;
   cameraPermissionGranted: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {
+
+  }
 
   async checkLocationPermission() {
     try {
       const permissionStatus = await Geolocation.checkPermissions();
       console.log('Location permission status:', permissionStatus.location);
+      this.cdr.detectChanges();
 
       if (permissionStatus?.location !== 'granted') {
         const requestStatus = await Geolocation.requestPermissions();
