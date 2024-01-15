@@ -63,7 +63,9 @@ export class StepsExercisePage implements OnInit {
     return degrees * Math.PI / 180;
   }
 
-  stopExercise() {
+  doneButton() {
+    console.log('Done button clicked.');
+
     // Stop watching position changes
     if (this.watchId) {
       Geolocation.clearWatch({ id: this.watchId });
@@ -74,7 +76,9 @@ export class StepsExercisePage implements OnInit {
       const endTime = new Date().getTime();
       this.timeTaken = (endTime - this.startTime) / 1000; // Convert to seconds
 
-      // You can navigate to another page or perform further actions here
+      console.log('Time taken:', this.timeTaken);
+
+      // Navigate to another page or perform further actions here
       this.router.navigate(['/tabs/qrcode-exercise'], {
         state: {
           distanceTraveled: this.distanceTraveled,
