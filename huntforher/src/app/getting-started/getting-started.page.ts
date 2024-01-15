@@ -14,7 +14,6 @@ export class GettingStartedPage implements OnInit {
   constructor(private alertController: AlertController, private router: Router) {}
 
   ngOnInit() {
-    // Hier kannst du Initialisierungen vornehmen, wenn nötig
   }
 
   async startGame() {

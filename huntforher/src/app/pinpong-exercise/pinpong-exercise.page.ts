@@ -1,5 +1,4 @@
-// pinpong-exercise.page.ts
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Geolocation, PositionOptions, Position } from '@capacitor/geolocation';
 import { Router } from '@angular/router';
 
@@ -21,7 +20,7 @@ export class PinpongExercisePage implements OnInit {
   public collectedRibbons: number = 0;
   private maxWallets: number = 2; // amount of money-bags that can be collected
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {}
 
   async ngOnInit() {
     await this.startWatchingPosition();
@@ -38,6 +37,7 @@ export class PinpongExercisePage implements OnInit {
       this.watchPositionId = await Geolocation.watchPosition(watchOptions, async (position, err) => {
         if (err) {
           console.error('Error watching position:', err);
+          this.cdr.detectChanges();
         } else {
           this.currentLocation = position || undefined;
           await this.calculateDistance();
@@ -112,7 +112,28 @@ export class PinpongExercisePage implements OnInit {
   }
 
   private async saveResults() {
-    // Implement logic to save results, e.g., to a JSON file or a database
+    const currentDate = new Date();
+    const dateTime = currentDate.toISOString();
+
+    const rewardsData = {
+      collectedWallets: this.collectedWallets,
+      collectedRibbons: this.collectedRibbons,
+      dateTime: dateTime
+    };
+
+    // Retrieve existing rewards from local storage
+    const allPinpongRewardsJson = localStorage.getItem('allPinpongRewards');
+    let allPinpongRewards: any[] = [];
+
+    if (allPinpongRewardsJson) {
+      allPinpongRewards = JSON.parse(allPinpongRewardsJson);
+    }
+
+    // Append the new rewards data to the array
+    allPinpongRewards.push(rewardsData);
+
+    // Store the updated rewards array in local storage
+    localStorage.setItem('allPinpongRewards', JSON.stringify(allPinpongRewards));
   }
 
   // Done Button
