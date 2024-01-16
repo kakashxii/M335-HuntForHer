@@ -11,14 +11,11 @@
     </ion-item>
 
     <ion-item class="checkbox-container">
-      <ion-checkbox disabled [(ngModel)]="isHeadTurned"></ion-checkbox>
+      <ion-checkbox [disabled]="true" [(ngModel)]="isTurnedUpsideDown"></ion-checkbox>
       <ion-label>upside down</ion-label>
     </ion-item>
 
     <ion-row class="button-container">
-      <ion-col>
-        <ion-button id="back-button" expand="block" color="danger" >Exit Game</ion-button>
-      </ion-col>
       <ion-col>
         <ion-button id="next-button" (click)="doneButton()" expand="block" color="danger" [disabled]="!isNextButtonEnabled">Next</ion-button>
       </ion-col>

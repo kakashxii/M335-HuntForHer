@@ -9,6 +9,7 @@ import { Router } from "@angular/router";
 export class ExerciseTurnphonePage implements OnInit, OnDestroy {
   isHeadTurned: boolean = false;
   isNextButtonEnabled: boolean = false;
+  isTurnedUpsideDown: boolean = false;
   checkOrientationInterval: any;
 
   constructor(private router: Router, private cdr: ChangeDetectorRef) {}
@@ -22,10 +23,7 @@ export class ExerciseTurnphonePage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-<<<<<<< HEAD
     // Stop the interval when the component is destroyed
-=======
->>>>>>> 01e8c14a274a790a86bc25be7bbca242abf38d2a
     clearInterval(this.checkOrientationInterval);
   }
 
@@ -46,7 +44,13 @@ export class ExerciseTurnphonePage implements OnInit, OnDestroy {
 
     // Update flags based on orientation
     this.isHeadTurned = isUpsideDown;
-    this.isNextButtonEnabled = isUpsideDown;
+    this.isTurnedUpsideDown = isUpsideDown;
+
+    if (isUpsideDown) {
+      // If turned upside down, enable the "Next" button
+      this.isNextButtonEnabled = true;
+    }
+
     this.cdr.detectChanges(); // Manually trigger Change Detection
   }
 
@@ -62,7 +66,11 @@ export class ExerciseTurnphonePage implements OnInit, OnDestroy {
           // Device is shaken
           console.log('Device shaken');
           this.isHeadTurned = true;
+          this.isTurnedUpsideDown = true;
+
+          // If shaken, enable the "Next" button
           this.isNextButtonEnabled = true;
+
           this.cdr.detectChanges(); // Manually trigger Change Detection
         }
       }

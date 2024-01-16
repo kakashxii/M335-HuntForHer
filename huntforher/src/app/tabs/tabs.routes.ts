@@ -21,7 +21,7 @@ export const routes: Routes = [
         loadChildren: () => import("./../settings/settings.module").then( m => m.SettingsPageModule)
       },
       {
-        path: 'post-hunts',
+        path: 'past-hunts',
         loadChildren: () => import("./../past-hunts/past-hunts.module").then( m => m.PastHuntsPageModule)
       },
       {
