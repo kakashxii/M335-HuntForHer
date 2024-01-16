@@ -9,6 +9,7 @@ import {UserDataService} from "../_services/user-data.service";
   styleUrls: ['./pinpong-exercise.page.scss'],
 })
 export class PinpongExercisePage implements OnInit {
+
   pingPongTableCoordinates = { latitude: 47.071945403994924, longitude: 8.348885173299777 };
   currentLocation: Position | undefined;
   distanceToPingPongTable: number | undefined;
