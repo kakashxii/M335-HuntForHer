@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Geolocation, PositionOptions, Position } from '@capacitor/geolocation';
 import { Router } from '@angular/router';
+import {UserDataService} from "../_services/user-data.service";
 
 @Component({
   selector: 'app-pinpong-exercise',
@@ -19,9 +20,13 @@ export class PinpongExercisePage implements OnInit {
   private isTaskCompleted: boolean = false;
   public collectedWallets: number = 0;
   public collectedRibbons: number = 0;
-  private maxWallets: number = 2; // amount of money-bags that can be collected
+  private maxWallets: number = 2;
 
-  constructor(private router: Router, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private userDataService: UserDataService
+  ) {}
 
   async ngOnInit() {
     await this.startWatchingPosition();
@@ -31,7 +36,7 @@ export class PinpongExercisePage implements OnInit {
     const watchOptions: PositionOptions = {
       maximumAge: 3000,
       timeout: 10000,
-      enableHighAccuracy: true
+      enableHighAccuracy: true,
     };
 
     try {
@@ -55,7 +60,7 @@ export class PinpongExercisePage implements OnInit {
       const distance = this.haversineDistance(
         {
           latitude: this.currentLocation.coords.latitude,
-          longitude: this.currentLocation.coords.longitude
+          longitude: this.currentLocation.coords.longitude,
         },
         this.pingPongTableCoordinates
       );
@@ -64,7 +69,7 @@ export class PinpongExercisePage implements OnInit {
       this.distanceToPingPongTable = distance;
 
       // Check if the distance is less than or equal to 20 meters
-      if (distance <= 20 && !this.isTaskCompleted) {
+      if (distance <= 200000 && !this.isTaskCompleted) {
         await this.taskCompleted();
 
         // Enable the Done button
@@ -79,7 +84,10 @@ export class PinpongExercisePage implements OnInit {
     }
   }
 
-  haversineDistance(coords1: { latitude: number; longitude: number }, coords2: { latitude: number; longitude: number }): number {
+  haversineDistance(
+    coords1: { latitude: number; longitude: number },
+    coords2: { latitude: number; longitude: number }
+  ): number {
     const R = 6371000; // Earth's radius in meters
     const lat1Rad = coords1.latitude * (Math.PI / 180);
     const lat2Rad = coords2.latitude * (Math.PI / 180);
@@ -99,17 +107,16 @@ export class PinpongExercisePage implements OnInit {
 
   async taskCompleted() {
     this.endTime = new Date().getTime();
-    const timeTaken = ((this.endTime as number) - (this.startTime as number)) / 1000; // time in seconds
+    const timeTaken = ((this.endTime as number) - (this.startTime as number)) / 1000; // Zeit in Sekunden
 
     if (timeTaken <= 300) {
-      // less or equals 5 minutes: 2 money-bags
       this.collectedWallets = this.maxWallets;
     } else if (timeTaken <= 360) {
-      // less or equals to 6 minutes : 1 money-bag
       this.collectedWallets = this.maxWallets / 2;
     } else {
-      // more than 6 minutes : 1 ribbon
       this.collectedRibbons = 1;
+      const potatoEmoji = '🥔';
+      this.userDataService.addPastHunt('Potato Hunt', potatoEmoji);
     }
 
     this.isTaskCompleted = true;
@@ -128,27 +135,17 @@ export class PinpongExercisePage implements OnInit {
     const rewardsData = {
       collectedWallets: this.collectedWallets,
       collectedRibbons: this.collectedRibbons,
-      dateTime: dateTime
+      dateTime: dateTime,
     };
 
-    // Retrieve existing rewards from local storage
-    const allPinpongRewardsJson = localStorage.getItem('allPinpongRewards');
-    let allPinpongRewards: any[] = [];
-
-    if (allPinpongRewardsJson) {
-      allPinpongRewards = JSON.parse(allPinpongRewardsJson);
-    }
-
-    // Append the new rewards data to the array
+    const allPinpongRewards = this.userDataService.getAllPastHunts();
     allPinpongRewards.push(rewardsData);
 
-    // Store the updated rewards array in local storage
-    localStorage.setItem('allPinpongRewards', JSON.stringify(allPinpongRewards));
+    this.userDataService.savePastHunts(allPinpongRewards);
   }
 
   // Done Button
   doneButton() {
-    // Stop watching the position when done
     if (this.watchPositionId) {
       Geolocation.clearWatch({ id: this.watchPositionId });
     }
