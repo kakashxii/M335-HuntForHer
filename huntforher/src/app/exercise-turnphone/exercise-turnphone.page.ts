@@ -62,17 +62,27 @@ export class ExerciseTurnphonePage implements OnInit, OnDestroy {
   handleDeviceMotion(event: DeviceMotionEvent | null) {
     if (event && event.accelerationIncludingGravity) {
       const acceleration = event.accelerationIncludingGravity;
-      const shakeThreshold = 20;
+      const gravityThreshold = 9.8; // Threshold for gravity when the device is not accelerated (upright position)
 
-      if (acceleration.x !== null && acceleration.y !== null && acceleration.z !== null) {
-        if (Math.abs(acceleration.x) > shakeThreshold ||
-          Math.abs(acceleration.y) > shakeThreshold ||
-          Math.abs(acceleration.z) > shakeThreshold) {
-          // Device is shaken
-          console.log('Device shaken');
+      if (
+        acceleration.x !== null &&
+        acceleration.y !== null &&
+        acceleration.z !== null
+      ) {
+        const totalAcceleration =
+          Math.abs(acceleration.x) +
+          Math.abs(acceleration.y) +
+          Math.abs(acceleration.z);
+
+        // Assuming 1g is the normal gravitational force, if the totalAcceleration is close to 1g, the device is in an upright position
+        const isUpsideDown = totalAcceleration < gravityThreshold * 0.8;
+
+        if (isUpsideDown) {
+          // Device is turned upside down
+          console.log('Device turned upside down');
           this.isHeadTurned = true;
 
-          // If shaken, enable the "Next" button
+          // If turned upside down, enable the "Next" button
           this.isNextButtonEnabled = true;
 
           this.cdr.detectChanges(); // Manually trigger Change Detection
