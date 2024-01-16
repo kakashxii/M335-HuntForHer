@@ -12,7 +12,7 @@ export class QrcodeExercisePage implements OnDestroy {
   expectedQRCodeContent: string = 'your_expected_content'; // Replace with your expected QR code content
   private startTime: number | null = null;
   private endTime: number | null = null;
-  private isTaskCompleted: boolean = false;
+  isTaskCompleted: boolean = false; // Make it public
   public collectedWallets: number = 0;
   public collectedRibbons: number = 0;
   private maxWallets: number = 4;

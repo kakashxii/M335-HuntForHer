@@ -38,12 +38,12 @@ export class PinpongExercisePage implements OnInit {
       this.watchPositionId = await Geolocation.watchPosition(watchOptions, async (position, err) => {
         if (err) {
           console.error('Error watching position:', err);
-          this.cdr.detectChanges();
         } else {
           this.currentLocation = position || undefined;
           await this.calculateDistance();
         }
       });
+
       this.startTimer(); // start timer when watchPosition begins
     } catch (error) {
       console.error('Error starting watch position:', error);
@@ -97,7 +97,7 @@ export class PinpongExercisePage implements OnInit {
     return distance; // in meters
   }
 
-  private async taskCompleted() {
+  async taskCompleted() {
     this.endTime = new Date().getTime();
     const timeTaken = ((this.endTime as number) - (this.startTime as number)) / 1000; // time in seconds
 
@@ -115,14 +115,13 @@ export class PinpongExercisePage implements OnInit {
     this.isTaskCompleted = true;
 
     await this.saveResults();
-    this.router.navigate(['/tabs/steps-exercise']);
   }
 
-  private startTimer() {
+  startTimer() {
     this.startTime = new Date().getTime();
   }
 
-  private async saveResults() {
+  async saveResults() {
     const currentDate = new Date();
     const dateTime = currentDate.toISOString();
 
