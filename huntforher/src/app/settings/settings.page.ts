@@ -91,7 +91,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   startGame() {
     if (this.startButtonEnabled) {
-      this.router.navigate(['/tabs/exercise-turnphone']);
+      this.router.navigate(['/tabs/pinpong-exercise']);
     }
   }
 }
