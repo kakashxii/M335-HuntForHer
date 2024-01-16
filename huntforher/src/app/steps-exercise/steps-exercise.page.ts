@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Geolocation, PositionOptions, Position } from '@capacitor/geolocation';
 import { Router } from '@angular/router';
@@ -16,23 +17,21 @@ export class StepsExercisePage implements OnInit {
   private isTaskCompleted: boolean = false;
   public collectedWallets: number = 0;
   public collectedRibbons: number = 0;
-  private maxWallets: number = 3; // Increase the maxWallets to 3 for this exercise
-  private maxRibbons: number = 2; // Set the maxRibbons to 2 for this exercise
+  private maxWallets: number = 3;
+  private maxRibbons: number = 2;
 
   constructor(private router: Router, private cdr: ChangeDetectorRef) {}
 
-  async ngOnInit() {
-    await this.startExercise();
+  ngOnInit() {
+    this.startExercise();
   }
 
   async startExercise() {
-    // Get initial position
     const position = await Geolocation.getCurrentPosition();
     if (position) {
       this.startPosition = position;
       this.startTimer();
 
-      // Watch for position changes
       const watchOptions: PositionOptions = { enableHighAccuracy: true };
       const watchId = await Geolocation.watchPosition(watchOptions, (position: Position | null, err) => {
         if (position && this.startPosition) {
@@ -46,8 +45,7 @@ export class StepsExercisePage implements OnInit {
 
   updateDistance(position: Position) {
     if (this.startPosition) {
-      // Calculate distance using Haversine formula
-      const R = 6371; // Earth radius in km
+      const R = 6371;
       const dLat = this.toRad(position.coords.latitude - this.startPosition.coords.latitude);
       const dLon = this.toRad(position.coords.longitude - this.startPosition.coords.longitude);
 
@@ -57,17 +55,15 @@ export class StepsExercisePage implements OnInit {
         Math.sin(dLon / 2) * Math.sin(dLon / 2);
 
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      const distance = R * c * 1000; // Convert to meters
+      const distance = R * c * 1000;
 
-      // Update distance in real-time
       this.distanceTraveled = distance;
 
-      if (distance >= 1000 && !this.isTaskCompleted) {
-        // Reward logic based on distance traveled
+      if (distance >= 20 && !this.isTaskCompleted) {
         this.taskCompleted();
       }
 
-      this.cdr.detectChanges(); // Manually trigger change detection after updating distance
+      this.cdr.detectChanges();
     }
   }
 
@@ -76,15 +72,13 @@ export class StepsExercisePage implements OnInit {
   }
 
   doneButton() {
-    this.saveResults(); // Save results before navigating
+    this.saveResults();
 
-    // Stop watching position changes
     if (this.watchId) {
       Geolocation.clearWatch({ id: this.watchId });
     }
 
     this.stopTimer();
-    // Navigate to another page or perform further actions here
     this.router.navigate(['/tabs/qrcode-exercise'], {
       state: {
         distanceTraveled: this.distanceTraveled,
@@ -104,22 +98,18 @@ export class StepsExercisePage implements OnInit {
 
   private taskCompleted() {
     if (this.endTime && this.startTime) {
-      const timeTaken = (this.endTime - this.startTime) / 1000; // time in seconds
+      const timeTaken = (this.endTime - this.startTime) / 1000;
 
-      // Your reward logic based on time taken
       if (timeTaken <= 300) {
-        // less or equals 5 minutes: 3 money-bags
         this.collectedWallets = this.maxWallets;
       } else if (timeTaken <= 360) {
-        // less or equals to 6 minutes: 1 money-bag
         this.collectedWallets = this.maxWallets / 3;
       } else {
-        // more than 6 minutes: 2 ribbons
         this.collectedRibbons = this.maxRibbons;
       }
 
       this.isTaskCompleted = true;
-      this.saveResults(); // Save results when the task is completed
+      this.saveResults();
     }
   }
 
@@ -130,10 +120,9 @@ export class StepsExercisePage implements OnInit {
     const rewardsData = {
       collectedWallets: this.collectedWallets,
       collectedRibbons: this.collectedRibbons,
-      dateTime: dateTime
+      dateTime: dateTime,
     };
 
-    // Retrieve existing rewards from local storage
     const allStepsRewardsJson = localStorage.getItem('allStepsRewards');
     let allStepsRewards: any[] = [];
 
@@ -141,10 +130,8 @@ export class StepsExercisePage implements OnInit {
       allStepsRewards = JSON.parse(allStepsRewardsJson);
     }
 
-    // Append the new rewards data to the array
     allStepsRewards.push(rewardsData);
 
-    // Store the updated rewards array in local storage
     localStorage.setItem('allStepsRewards', JSON.stringify(allStepsRewards));
   }
 }

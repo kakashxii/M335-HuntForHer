@@ -7,7 +7,7 @@
 <ion-content [fullscreen]="true">
   <div class="intro">
     <p>Embark on a purposeful journey to show support for breast cancer awareness by completing a meaningful walk to designated coordinates.</p>
-    <h2>🚶🏻‍♀️Walk 2 meters</h2>
+    <h2>🚶🏻‍♀️ Walk 20 meters</h2>
 
     <!-- Display the real-time distance -->
     <div *ngIf="distanceTraveled !== null">
@@ -15,7 +15,7 @@
     </div>
 
     <!-- Button to stop the exercise -->
-    <ion-button  (click)="doneButton()" color="danger" class="custom-button">Done</ion-button>
+    <ion-button (click)="doneButton()" [disabled]="distanceTraveled < 20" color="danger" class="custom-button">Done</ion-button>
   </div>
   <p>💰 Collect up to 3 Money Bags</p>
   <p>🎀 Collect up to 2 Ribbon</p>

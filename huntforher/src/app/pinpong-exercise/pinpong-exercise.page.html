@@ -24,7 +24,7 @@
     </ion-card-content>
   </ion-card>
   <!-- Done Button -->
-  <ion-button (click)="doneButton()" color="danger" class="custom-button">Done</ion-button>
+  <ion-button (click)="doneButton()" color="danger" class="custom-button" [disabled]="!isNextButtonEnabled">Done</ion-button>
 
   <!-- Reward Information -->
   <p *ngIf="collectedWallets === 0 && collectedRibbons === 0">

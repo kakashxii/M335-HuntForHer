@@ -11,6 +11,7 @@ export class PinpongExercisePage implements OnInit {
   pingPongTableCoordinates = { latitude: 47.071945403994924, longitude: 8.348885173299777 };
   currentLocation: Position | undefined;
   distanceToPingPongTable: number | undefined;
+  isNextButtonEnabled: boolean = false; // Added variable to control the Done button state
 
   watchPositionId: string | undefined;
   private startTime: number | null = null;
@@ -62,9 +63,12 @@ export class PinpongExercisePage implements OnInit {
       console.log('Distance to Ping Pong Table:', distance);
       this.distanceToPingPongTable = distance;
 
-      if (distance <= 5 && !this.isTaskCompleted) {
+      if (distance <= 20 && !this.isTaskCompleted) {
         await this.taskCompleted();
       }
+
+      // Update the Done button state based on the distance
+      this.isNextButtonEnabled = distance <= 20;
     }
   }
 
