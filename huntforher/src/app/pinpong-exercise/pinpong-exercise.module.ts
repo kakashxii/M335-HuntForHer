@@ -17,4 +17,7 @@ import { PinpongExercisePage } from './pinpong-exercise.page';
   ],
   declarations: [PinpongExercisePage]
 })
-export class PinpongExercisePageModule {}
+export class PinpongExercisePageModule {
+
+
+}

@@ -22,7 +22,10 @@ export class ExerciseTurnphonePage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+<<<<<<< HEAD
     // Stop the interval when the component is destroyed
+=======
+>>>>>>> 01e8c14a274a790a86bc25be7bbca242abf38d2a
     clearInterval(this.checkOrientationInterval);
   }
 
@@ -72,7 +75,6 @@ export class ExerciseTurnphonePage implements OnInit, OnDestroy {
   }
 
   doneButton() {
-    // Add additional actions when the "Done" button is clicked
     this.router.navigate(['/tabs/load-exercise']);
   }
 }
