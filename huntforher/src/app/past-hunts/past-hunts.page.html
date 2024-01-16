@@ -9,6 +9,15 @@
     <ion-item *ngFor="let hunt of pastHunts">
       <ion-label>{{ hunt.name }}</ion-label>
       <ion-note slot="end">{{ hunt.dateTime }}</ion-note>
+      <ion-note slot="end" *ngIf="hunt.exerciseType === 'steps'">
+        💰 {{ getTotalCollectedRewards(hunt).collectedWallets }} 🎀 {{ getTotalCollectedRewards(hunt).collectedRibbons }}
+      </ion-note>
+      <ion-note slot="end" *ngIf="hunt.exerciseType === 'pingpong'">
+        💰 {{ getTotalCollectedRewards(hunt).collectedWallets }} 🎀 {{ getTotalCollectedRewards(hunt).collectedRibbons }}
+      </ion-note>
+      <ion-note slot="end" *ngIf="hunt.exerciseType === 'qrcode'">
+        💰 {{ getTotalCollectedRewards(hunt).collectedWallets }} 🎀 {{ getTotalCollectedRewards(hunt).collectedRibbons }}
+      </ion-note>
     </ion-item>
   </ion-list>
 </ion-content>

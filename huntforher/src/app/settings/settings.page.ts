@@ -1,19 +1,46 @@
 // settings.page.ts
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Geolocation, PositionOptions } from '@capacitor/geolocation';
 import { Camera } from '@capacitor/camera';
 import { Router } from '@angular/router';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
-export class SettingsPage {
+export class SettingsPage implements OnInit, OnDestroy {
   locationPermissionGranted: boolean = false;
   cameraPermissionGranted: boolean = false;
+  startButtonEnabled: boolean = false;
+  private intervalSubscription: Subscription | undefined;
 
   constructor(private router: Router) {}
+
+  ngOnInit() {
+    // Perform the initial permission check when the component is initialized
+    this.checkLocationPermission();
+    this.checkCameraPermission();
+
+    // Set up an interval to periodically check permissions
+    this.intervalSubscription = interval(1000).subscribe(() => {
+      this.checkLocationPermission();
+      this.checkCameraPermission();
+    });
+  }
+
+  ngOnDestroy() {
+    // Unsubscribe from the interval when the component is destroyed
+    if (this.intervalSubscription) {
+      this.intervalSubscription.unsubscribe();
+    }
+  }
+
+  async updateStartButtonState() {
+    // Enable the button only if both location and camera permissions are granted
+    this.startButtonEnabled = this.locationPermissionGranted && this.cameraPermissionGranted;
+  }
 
   async checkLocationPermission() {
     try {
@@ -26,11 +53,14 @@ export class SettingsPage {
         if (requestStatus.location !== 'granted') {
           // Go to location settings
           this.locationPermissionGranted = false;
-          return;
+        } else {
+          this.locationPermissionGranted = true;
         }
+      } else {
+        this.locationPermissionGranted = true;
       }
 
-      this.locationPermissionGranted = true;
+      this.updateStartButtonState();
     } catch (e) {
       console.error('Error checking location permission:', e);
     }
@@ -47,18 +77,22 @@ export class SettingsPage {
         if (requestStatus.camera !== 'granted') {
           // Go to camera settings
           this.cameraPermissionGranted = false;
-          return;
+        } else {
+          this.cameraPermissionGranted = true;
         }
+      } else {
+        this.cameraPermissionGranted = true;
       }
 
-      this.cameraPermissionGranted = true;
+      this.updateStartButtonState();
     } catch (e) {
       console.error('Error checking camera permission:', e);
     }
   }
 
   startGame() {
+    if (this.startButtonEnabled) {
       this.router.navigate(['/tabs/pinpong-exercise']);
-
+    }
   }
 }

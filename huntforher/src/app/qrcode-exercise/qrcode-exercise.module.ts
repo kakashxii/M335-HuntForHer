@@ -8,6 +8,7 @@ import { QrcodeExercisePageRoutingModule } from './qrcode-exercise-routing.modul
 
 import { QrcodeExercisePage } from './qrcode-exercise.page';
 import { QRCodeModule } from 'angularx-qrcode';
+import {IonIcon, IonLabel, IonTabBar, IonTabButton, IonTabs} from "@ionic/angular/standalone";
 
 @NgModule({
   imports: [
@@ -15,7 +16,13 @@ import { QRCodeModule } from 'angularx-qrcode';
     FormsModule,
     IonicModule,
     QrcodeExercisePageRoutingModule,
-    QRCodeModule
+    QRCodeModule,
+    IonIcon,
+    IonLabel,
+    IonTabBar,
+    IonTabButton,
+    IonTabs
+
   ],
   declarations: [QrcodeExercisePage]
 })

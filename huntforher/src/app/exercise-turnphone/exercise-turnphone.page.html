@@ -1,22 +1,25 @@
-<ion-content [fullscreen]="true">
+<ion-header class="top">
+  <ion-toolbar>
+    <ion-title>Turn Hope</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="background">
   <div class="ion-padding">
-
     <ion-item>
-      <ion-label>Beschreibung:</ion-label>
-      <ion-text class="task">Drehe das Gerät auf den Kopf</ion-text>
+      <ion-text class="task">Turn the device upside down.</ion-text>
     </ion-item>
 
     <ion-item class="checkbox-container">
       <ion-checkbox disabled [(ngModel)]="isHeadTurned"></ion-checkbox>
-      <ion-label>Auf dem Kopf</ion-label>
+      <ion-label>upside down</ion-label>
     </ion-item>
 
     <ion-row class="button-container">
       <ion-col>
-        <ion-button id="back-button">Zurück</ion-button>
+        <ion-button id="back-button" expand="block" color="danger" >Exit Game</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button id="next-button" (click)="doneButton()" [disabled]="!isNextButtonEnabled">Weiter</ion-button>
+        <ion-button id="next-button" (click)="doneButton()" expand="block" color="danger" [disabled]="!isNextButtonEnabled">Next</ion-button>
       </ion-col>
     </ion-row>
 

@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="background">
+<ion-content [fullscreen]="true">
   <div class="intro">
     <p>Every charge of your phone becomes a symbolic gesture, powering your device to continue supporting breast cancer awareness.</p>
 
@@ -12,6 +12,6 @@
     <ion-checkbox disabled [(ngModel)]="isCharging">Phone is connected to charger</ion-checkbox>
 
     <!-- Button to navigate to the next page -->
-    <ion-button expand="block" [disabled]="!isCharging" (click)="goToNextPage()" color="danger" class="custom-button">Next Exercise</ion-button>
+    <ion-button [disabled]="!isCharging" (click)="goToNextPage()" color="danger" class="custom-button">Next Exercise</ion-button>
   </div>
 </ion-content>
