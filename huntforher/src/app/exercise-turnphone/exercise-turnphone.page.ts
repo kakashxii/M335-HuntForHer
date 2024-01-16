@@ -15,14 +15,12 @@ export class ExerciseTurnphonePage implements OnInit {
 
   ngOnInit() {
     this.startOrientationListener();
-    // Starte die periodische Überprüfung alle 3 Sekunden
     this.checkOrientationInterval = setInterval(() => {
       this.checkOrientation();
     }, 3000);
   }
 
   ngOnDestroy() {
-    // Stopp das Interval, wenn die Komponente zerstört wird
     clearInterval(this.checkOrientationInterval);
   }
 
@@ -50,7 +48,6 @@ export class ExerciseTurnphonePage implements OnInit {
   }
 
   doneButton() {
-    // Füge hier weitere Aktionen hinzu, wenn der "Weiter"-Button geklickt wird
     this.router.navigate(['/tabs/load-exercise']);
   }
 }

@@ -1,4 +1,3 @@
-// settings.page.ts
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Geolocation, PositionOptions } from '@capacitor/geolocation';
 import { Camera } from '@capacitor/camera';

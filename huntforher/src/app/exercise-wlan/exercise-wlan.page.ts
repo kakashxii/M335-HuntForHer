@@ -17,44 +17,44 @@ export class ExerciseWlanPage implements OnInit {
   ngOnInit() {
     this.startNetworkListener();
 
-    // Überprüfe alle 5 Sekunden, ob das Gerät mit dem WLAN verbunden ist
+    // Check every 5 seconds whether the device is connected to Wi-Fi
     this.wifiCheckInterval = setInterval(() => {
       this.checkWifiConnection();
     }, 5000);
   }
 
   ngOnDestroy() {
-    // Wenn die Seite verlassen wird, stoppe die Überprüfung
+    // Stop the periodic check when leaving the page
     clearInterval(this.wifiCheckInterval);
   }
 
   async startNetworkListener() {
     const status = await Network.getStatus();
 
-    // Überprüfe den aktuellen Netzwerkstatus
+    // Check the current network status
     this.updateNetworkStatus(status);
 
-    // Füge einen Listener hinzu, um auf Netzwerkänderungen zu reagieren
+    // Add a listener to react to network changes
     Network.addListener('networkStatusChange', (status: ConnectionStatus) => {
       this.updateNetworkStatus(status);
     });
   }
 
   updateNetworkStatus(status: ConnectionStatus) {
-    // Überwache den Netzwerkstatus und setze die Variable entsprechend
+    // Monitor the network status and set the variable accordingly
     this.isWifiConnected = status.connected && status.connectionType === 'wifi';
     this.isNextButtonEnabled = this.isWifiConnected;
   }
 
   checkWifiConnection() {
-    // Überprüfe alle 5 Sekunden die WLAN-Verbindung
+    // Check the Wi-Fi connection every 5 seconds
     const status = Network.getStatus().then((status: ConnectionStatus) => {
       this.updateNetworkStatus(status);
     });
   }
 
   doneButton() {
-    // Stoppe die Überprüfung, wenn die Seite verlassen wird
+    // Stop the periodic check when leaving the page
     clearInterval(this.wifiCheckInterval);
     this.router.navigate(['/tabs/load-exercise']);
   }

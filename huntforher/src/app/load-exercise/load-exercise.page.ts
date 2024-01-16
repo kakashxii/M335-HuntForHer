@@ -15,28 +15,31 @@ export class LoadExercisePage implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
+    // Log device information when the page initializes
     this.logDeviceInfo();
+    // Log battery information and check every 5 seconds if the phone is charging
     this.logBatteryInfo();
-
-    // Überprüfe alle 5 Sekunden, ob das Telefon aufgeladen wird
     this.chargingCheckInterval = setInterval(() => {
       this.logBatteryInfo();
     }, 5000);
   }
 
   ngOnDestroy() {
-    // Wenn die Seite verlassen wird, stoppe die Überprüfung
+    // Stop the periodic battery check when leaving the page
     clearInterval(this.chargingCheckInterval);
   }
 
   async logDeviceInfo() {
+    // Retrieve and log device information
     this.deviceInfo = await Device.getInfo();
     console.log('Device Info:', this.deviceInfo);
   }
 
   async logBatteryInfo() {
+    // Retrieve and log battery information
     const batteryInfo = await Device.getBatteryInfo();
     console.log('Battery Info:', batteryInfo);
+    // Update the charging status based on battery information
     this.isCharging = batteryInfo.isCharging || false;
   }
 
