@@ -20,7 +20,7 @@ Install dependencies using npm or yarn.
 Follow instructions in the respective folders for Angular, Ionic, and Android Studio for setup and development.
 
 ## Prolems
-we dint had enough time to finish the implementation of rewards logic.
+We didnt had enough time to finish the implementation of rewards logic.
 The turn phone exercise doesnt work correctly.
 Things we didnt implement like planned in Prototyp:
 - Resultspage
