@@ -12,6 +12,12 @@ export class ExerciseTurnphonePage implements OnInit, OnDestroy {
   isTurnedUpsideDown: boolean = false;
   checkOrientationInterval: any;
 
+  private startTime: number | null = null;
+  private endTime: number | null = null;
+  public collectedWallets: number = 0;
+  public collectedRibbons: number = 0;
+  private maxWallets: number = 5; // amount of money-bags that can be collected
+
   constructor(private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
@@ -42,8 +48,7 @@ export class ExerciseTurnphonePage implements OnInit, OnDestroy {
     const isUpsideDown = this.isDeviceUpsideDown();
     console.log('Is upside down:', isUpsideDown);
 
-    // Update flags based on orientation
-    this.isHeadTurned = isUpsideDown;
+    // Update flag based on orientation
     this.isTurnedUpsideDown = isUpsideDown;
 
     if (isUpsideDown) {
@@ -66,7 +71,6 @@ export class ExerciseTurnphonePage implements OnInit, OnDestroy {
           // Device is shaken
           console.log('Device shaken');
           this.isHeadTurned = true;
-          this.isTurnedUpsideDown = true;
 
           // If shaken, enable the "Next" button
           this.isNextButtonEnabled = true;
@@ -83,6 +87,31 @@ export class ExerciseTurnphonePage implements OnInit, OnDestroy {
   }
 
   doneButton() {
+    // Stop the interval when done
+    clearInterval(this.checkOrientationInterval);
+
+    // Calculate time taken for the exercise
+    this.endTime = new Date().getTime();
+    const timeTaken = ((this.endTime as number) - (this.startTime as number)) / 1000; // time in seconds
+
+    // Apply rewards based on time
+    if (timeTaken <= 300) {
+      // less or equals 5 minutes: 5 money-bags
+      this.collectedWallets = this.maxWallets;
+    } else if (timeTaken <= 360) {
+      // less or equals to 6 minutes : 2 money-bags
+      this.collectedWallets = this.maxWallets / 2;
+    } else {
+      // more than 6 minutes : 4 ribbons
+      this.collectedRibbons = 4;
+    }
+
+    // Navigate to the next page or perform other actions as needed
     this.router.navigate(['/tabs/load-exercise']);
+  }
+
+  // Start the exercise and timer
+  startExercise() {
+    this.startTime = new Date().getTime();
   }
 }

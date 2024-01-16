@@ -56,6 +56,6 @@ export class ExerciseWlanPage implements OnInit {
   doneButton() {
     // Stop the periodic check when leaving the page
     clearInterval(this.wifiCheckInterval);
-    this.router.navigate(['/tabs/past-hunts']);
+    this.router.navigate(['/tabs/post-hunts']);
   }
 }
