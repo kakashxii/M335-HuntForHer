@@ -63,12 +63,19 @@ export class PinpongExercisePage implements OnInit {
       console.log('Distance to Ping Pong Table:', distance);
       this.distanceToPingPongTable = distance;
 
+      // Check if the distance is less than or equal to 20 meters
       if (distance <= 20 && !this.isTaskCompleted) {
         await this.taskCompleted();
+
+        // Enable the Done button
+        this.isNextButtonEnabled = true;
+      } else {
+        // Disable the Done button
+        this.isNextButtonEnabled = false;
       }
 
-      // Update the Done button state based on the distance
-      this.isNextButtonEnabled = distance <= 20;
+      // Manually trigger change detection after updating button state
+      this.cdr.detectChanges();
     }
   }
 
