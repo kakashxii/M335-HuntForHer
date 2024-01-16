@@ -24,9 +24,7 @@
       <p>{{ scannedResult }}</p>
     </ion-card-content>
   </ion-card>
-  <ion-button (click)="doneButton()" color="danger" class="custom-button">Done</ion-button>
+  <ion-button (click)="doneButton()" color="danger" class="custom-button" [disabled]="!scannedResult">Done</ion-button>
   <p>💰 Collect up to 4 Money Bags</p>
   <p>🎀 Collect up to 3 Ribbon</p>
-
 </ion-content>
-
