@@ -20,7 +20,6 @@ export class PastHuntsPage implements OnInit {
 
     if (allPastHuntsJson) {
       this.pastHunts = JSON.parse(allPastHuntsJson);
-      console.log('All Past Hunts:', this.pastHunts); // Log to check if data is retrieved
 
       // Iterate through past hunts and load rewards
       this.pastHunts.forEach((pastHunt) => {
