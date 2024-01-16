@@ -10,11 +10,6 @@
       <ion-text class="task">Turn the device upside down.</ion-text>
     </ion-item>
 
-    <ion-item class="checkbox-container">
-      <ion-checkbox [disabled]="true" [(ngModel)]="isTurnedUpsideDown"></ion-checkbox>
-      <ion-label>Upside Down</ion-label>
-    </ion-item>
-
     <ion-row class="button-container">
       <ion-col>
         <ion-button id="next-button" (click)="doneButton()" color="danger" [disabled]="!isNextButtonEnabled">Next</ion-button>
@@ -22,5 +17,5 @@
     </ion-row>
   </div>
   <p>💰 Collect up to 5 Money Bags</p>
-  <p>🎀 Collect up to 4 Ribbon</p>
+  <p>🎀 Collect up to 4 Ribbons</p>
 </ion-content>
