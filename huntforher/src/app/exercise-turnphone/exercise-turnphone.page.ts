@@ -26,6 +26,9 @@ export class ExerciseTurnphonePage implements OnInit, OnDestroy {
     this.checkOrientationInterval = setInterval(() => {
       this.checkOrientation();
     }, 3000);
+
+    // Start the exercise and timer
+    this.startExercise();
   }
 
   ngOnDestroy() {
