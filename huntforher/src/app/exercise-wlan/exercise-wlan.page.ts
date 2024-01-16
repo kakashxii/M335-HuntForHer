@@ -27,9 +27,6 @@ export class ExerciseWlanPage implements OnInit {
     this.wifiCheckInterval = setInterval(() => {
       this.checkWifiConnection();
     }, 5000);
-
-    // Start the exercise automatically when the page loads
-    this.startExercise();
   }
 
   ngOnDestroy() {
@@ -65,7 +62,9 @@ export class ExerciseWlanPage implements OnInit {
   doneButton() {
     // Stop the periodic check when leaving the page
     clearInterval(this.wifiCheckInterval);
-    this.router.navigate(['/tabs/post-hunts']);
+
+    // Start the exercise and timer when the user clicks the "Finish hunting" button
+    this.startExercise();
   }
 
   // Function to update rewards based on time elapsed
@@ -103,7 +102,5 @@ export class ExerciseWlanPage implements OnInit {
 
     // Ensure Change Detection is triggered to update the UI
     this.cdr.detectChanges();
-
-    // this.timerInterval = timerInterval;
   }
 }

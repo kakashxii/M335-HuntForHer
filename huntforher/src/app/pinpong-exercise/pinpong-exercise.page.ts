@@ -69,7 +69,7 @@ export class PinpongExercisePage implements OnInit {
       this.distanceToPingPongTable = distance;
 
       // Check if the distance is less than or equal to 20 meters
-      if (distance <= 200000 && !this.isTaskCompleted) {
+      if (distance <= 20 && !this.isTaskCompleted) {
         await this.taskCompleted();
 
         // Enable the Done button
