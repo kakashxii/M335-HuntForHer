@@ -9,13 +9,14 @@ import { Router } from '@angular/router';
 })
 export class QrcodeExercisePage implements OnDestroy {
   scannedResult: any;
+  expectedQRCodeContent: string = 'your_expected_content'; // Replace with your expected QR code content
   private startTime: number | null = null;
   private endTime: number | null = null;
   private isTaskCompleted: boolean = false;
   public collectedWallets: number = 0;
   public collectedRibbons: number = 0;
-  private maxWallets: number = 4; // Increase the maxWallets to 4 for this exercise
-  private maxRibbons: number = 3; // Set the maxRibbons to 3 for this exercise
+  private maxWallets: number = 4;
+  private maxRibbons: number = 3;
 
   constructor(private router: Router) {}
 
@@ -42,9 +43,16 @@ export class QrcodeExercisePage implements OnDestroy {
 
       if (result.hasContent) {
         this.scannedResult = result.content;
-        await BarcodeScanner.showBackground();
-        document.querySelector('body')?.classList.remove('scanner-active');
-        console.log(this.scannedResult);
+
+        if (this.scannedResult === this.expectedQRCodeContent) {
+          await BarcodeScanner.showBackground();
+          document.querySelector('body')?.classList.remove('scanner-active');
+          console.log(this.scannedResult);
+        } else {
+          console.warn('Incorrect QR Code content. Please scan the correct QR Code.');
+          this.scannedResult = null;
+          return;
+        }
       } else {
         console.warn('Scan canceled or no content found.');
       }
@@ -68,8 +76,12 @@ export class QrcodeExercisePage implements OnDestroy {
   }
 
   doneButton() {
-    this.saveResults(); // Save results before navigating
-    this.router.navigate(['/tabs/exercise-turnphone']);
+    if (this.isTaskCompleted && this.scannedResult === this.expectedQRCodeContent) {
+      this.saveResults();
+      this.router.navigate(['/tabs/exercise-turnphone']);
+    } else {
+      console.warn('Task is not completed or incorrect QR Code content.');
+    }
   }
 
   private startTimer() {
@@ -82,22 +94,18 @@ export class QrcodeExercisePage implements OnDestroy {
 
   private async taskCompleted() {
     if (this.startTime && this.endTime) {
-      const timeTaken = (this.endTime - this.startTime) / 1000; // time in seconds
+      const timeTaken = (this.endTime - this.startTime) / 1000;
 
-      // Your reward logic based on time taken
       if (timeTaken <= 300) {
-        // less or equals 5 minutes: 4 money-bags
         this.collectedWallets = this.maxWallets;
       } else if (timeTaken <= 360) {
-        // less or equals to 6 minutes: 2 money-bags
         this.collectedWallets = this.maxWallets / 2;
       } else {
-        // more than 6 minutes: 3 ribbons
         this.collectedRibbons = this.maxRibbons;
       }
 
       this.isTaskCompleted = true;
-      this.saveResults(); // Save results when the task is completed
+      this.saveResults();
     }
   }
 
@@ -111,7 +119,6 @@ export class QrcodeExercisePage implements OnDestroy {
       dateTime: dateTime
     };
 
-    // Retrieve existing rewards from local storage
     const allQRCodeRewardsJson = localStorage.getItem('allQRCodeRewards');
     let allQRCodeRewards: any[] = [];
 
@@ -119,10 +126,7 @@ export class QrcodeExercisePage implements OnDestroy {
       allQRCodeRewards = JSON.parse(allQRCodeRewardsJson);
     }
 
-    // Append the new rewards data to the array
     allQRCodeRewards.push(rewardsData);
-
-    // Store the updated rewards array in local storage
     localStorage.setItem('allQRCodeRewards', JSON.stringify(allQRCodeRewards));
   }
 }
