@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
 @Component({
@@ -6,30 +6,30 @@ import { Router } from "@angular/router";
   templateUrl: './exercise-turnphone.page.html',
   styleUrls: ['./exercise-turnphone.page.scss'],
 })
-export class ExerciseTurnphonePage implements OnInit {
+export class ExerciseTurnphonePage implements OnInit, OnDestroy {
   isHeadTurned: boolean = false;
   isNextButtonEnabled: boolean = false;
   checkOrientationInterval: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
+    // Start the orientation listener and initiate periodic checks every 3 seconds
     this.startOrientationListener();
-    // Starte die periodische Überprüfung alle 3 Sekunden
     this.checkOrientationInterval = setInterval(() => {
       this.checkOrientation();
     }, 3000);
   }
 
   ngOnDestroy() {
-    // Stopp das Interval, wenn die Komponente zerstört wird
+    // Stop the interval when the component is destroyed
     clearInterval(this.checkOrientationInterval);
   }
 
   startOrientationListener() {
-    window.addEventListener('orientationchange', () => {
-      console.log('Orientation changed');
-      this.checkOrientation();
+    // Add an event listener for device motion
+    window.addEventListener('devicemotion', (event) => {
+      this.handleDeviceMotion(event);
     });
 
     // Initial check when the page loads
@@ -37,20 +37,42 @@ export class ExerciseTurnphonePage implements OnInit {
   }
 
   checkOrientation() {
-    const isUpsideDown = window.matchMedia("(orientation: landscape)").matches;
+    // Check if the device is upside down (landscape orientation)
+    const isUpsideDown = this.isDeviceUpsideDown();
     console.log('Is upside down:', isUpsideDown);
 
-    if (isUpsideDown) {
-      this.isHeadTurned = true;
-      this.isNextButtonEnabled = true;
-    } else {
-      this.isHeadTurned = false;
-      this.isNextButtonEnabled = false;
+    // Update flags based on orientation
+    this.isHeadTurned = isUpsideDown;
+    this.isNextButtonEnabled = isUpsideDown;
+    this.cdr.detectChanges(); // Manually trigger Change Detection
+  }
+
+  handleDeviceMotion(event: DeviceMotionEvent | null) {
+    if (event && event.accelerationIncludingGravity) {
+      const acceleration = event.accelerationIncludingGravity;
+      const shakeThreshold = 20;
+
+      if (acceleration.x !== null && acceleration.y !== null && acceleration.z !== null) {
+        if (Math.abs(acceleration.x) > shakeThreshold ||
+          Math.abs(acceleration.y) > shakeThreshold ||
+          Math.abs(acceleration.z) > shakeThreshold) {
+          // Device is shaken
+          console.log('Device shaken');
+          this.isHeadTurned = true;
+          this.isNextButtonEnabled = true;
+          this.cdr.detectChanges(); // Manually trigger Change Detection
+        }
+      }
     }
   }
 
+  isDeviceUpsideDown(): boolean {
+    const screenOrientation = (window.screen as any).orientation;
+    return screenOrientation && (screenOrientation.type.includes('portrait') || screenOrientation.type.includes('reverse'));
+  }
+
   doneButton() {
-    // Füge hier weitere Aktionen hinzu, wenn der "Weiter"-Button geklickt wird
+    // Add additional actions when the "Done" button is clicked
     this.router.navigate(['/tabs/load-exercise']);
   }
 }
