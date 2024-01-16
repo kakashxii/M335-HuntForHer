@@ -57,7 +57,7 @@ export class StepsExercisePage implements OnInit {
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       const distance = R * c * 1000;
 
-      this.distanceTraveled = distance;
+      this.distanceTraveled = 10;
 
       if (distance >= 20 && !this.isTaskCompleted) {
         this.taskCompleted();

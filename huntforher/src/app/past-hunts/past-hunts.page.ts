@@ -30,8 +30,11 @@ export class PastHuntsPage implements OnInit {
 
   getTotalCollectedRewards(pastHunt: any) {
     // Retrieve rewards for the specific past hunt
-    const rewardsKey = this.getRewardsKeyForExercise(pastHunt.exerciseType);
+    console.log("past hunt: ", pastHunt)
+    const rewardsKey = this.getRewardsKeyForExercise(pastHunt.rewards);
+    console.log("rewardsKey: ", rewardsKey)
     const rewardsJson = localStorage.getItem(rewardsKey);
+    console.log("rewardsJson: ", rewardsJson)
 
     if (rewardsJson) {
       const rewards = JSON.parse(rewardsJson);
@@ -51,16 +54,23 @@ export class PastHuntsPage implements OnInit {
     };
   }
 
-  private getRewardsKeyForExercise(exerciseType: string): string {
-    // Define the storage key for each exercise type
-    switch (exerciseType) {
-      case 'steps':
+  private getRewardsKeyForExercise(reward: string): string {
+    // Define the storage key for each reward type
+    switch (reward) {
+      case 'steps-exercise':
         return 'allStepsRewards';
-      case 'pingpong':
+      case 'pingpong-exercise':
         return 'allPingPongRewards';
-      case 'qrcode':
+      case 'qrcode-exercise':
         return 'allQRCodeRewards';
-      // Add more cases for other exercise types if needed
+      case 'exercise-wlan':
+        return 'allQRCodeRewards';
+      case 'exercise-turnphone':
+        return 'allQRCodeRewards';
+      case 'load-exercise':
+        return 'allQRCodeRewards';
+
+      // Add more cases for other reward types if needed
       default:
         return 'unknownRewards';
     }
