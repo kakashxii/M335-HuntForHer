@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="top">
   <ion-toolbar>
     <ion-title>Past Hunts</ion-title>
   </ion-toolbar>
@@ -9,14 +9,8 @@
     <ion-item *ngFor="let hunt of pastHunts">
       <ion-label>{{ hunt.name }}</ion-label>
       <ion-note slot="end">{{ hunt.dateTime }}</ion-note>
-      <ion-note slot="end" *ngIf="hunt.exerciseType === 'steps'">
-        💰 {{ getTotalCollectedRewards(hunt).collectedWallets }} 🎀 {{ getTotalCollectedRewards(hunt).collectedRibbons }}
-      </ion-note>
-      <ion-note slot="end" *ngIf="hunt.exerciseType === 'pingpong'">
-        💰 {{ getTotalCollectedRewards(hunt).collectedWallets }} 🎀 {{ getTotalCollectedRewards(hunt).collectedRibbons }}
-      </ion-note>
-      <ion-note slot="end" *ngIf="hunt.exerciseType === 'qrcode'">
-        💰 {{ getTotalCollectedRewards(hunt).collectedWallets }} 🎀 {{ getTotalCollectedRewards(hunt).collectedRibbons }}
+      <ion-note>
+        💰 {{ hunt.rewards.collectedRibbons }} 🎀 {{ hunt.rewards.collectedWallets }}
       </ion-note>
     </ion-item>
   </ion-list>

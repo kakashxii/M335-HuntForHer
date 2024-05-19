@@ -1,23 +1,26 @@
-<!-- exercise-connectwifi.page.html -->
+<ion-header class="top">
+  <ion-toolbar>
+    <ion-title>Connection</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true">
   <div class="ion-padding">
     <ion-item>
-      <ion-label>Beschreibung:</ion-label>
-      <ion-text class="task">Verbinde dich mit dem WLAN</ion-text>
+      <ion-text class="task">Connect with Wi-Fi</ion-text>
     </ion-item>
 
     <ion-item class="checkbox-container">
       <ion-checkbox disabled [(ngModel)]="isWifiConnected"></ion-checkbox>
-      <ion-label>Mit WLAN verbunden</ion-label>
+      <ion-label>connected</ion-label>
     </ion-item>
 
     <ion-row class="button-container">
       <ion-col>
-        <ion-button id="back-button">Zurück</ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button id="next-button" (click)="doneButton()" [disabled]="!isNextButtonEnabled">Weiter</ion-button>
+        <ion-button id="next-button" color="danger" (click)="doneButton()" [disabled]="!isNextButtonEnabled">Finish hunting</ion-button>
       </ion-col>
     </ion-row>
   </div>
+  <p>💰 Collect up to 7 Money Bags</p>
+  <p>🎀 Collect up to 6 Ribbon</p>
 </ion-content>

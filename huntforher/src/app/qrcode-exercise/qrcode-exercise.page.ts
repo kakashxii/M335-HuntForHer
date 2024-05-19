@@ -126,3 +126,4 @@ export class QrcodeExercisePage implements OnDestroy {
     localStorage.setItem('allQRCodeRewards', JSON.stringify(allQRCodeRewards));
   }
 }
+6
