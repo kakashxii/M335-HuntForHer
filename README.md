@@ -19,6 +19,8 @@ Clone this repository.
 Install dependencies using npm or yarn.
 Follow instructions in the respective folders for Angular, Ionic, and Android Studio for setup and development.
 
+This project was fun
+
 ## Contributors
 - kakashxii
 - bernaimeriii
