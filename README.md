@@ -19,7 +19,7 @@ Clone this repository.
 Install dependencies using npm or yarn.
 Follow instructions in the respective folders for Angular, Ionic, and Android Studio for setup and development.
 
-<<<<<<< HEAD
+
 This project was fun
 =======
 ## Prolems
@@ -29,7 +29,6 @@ Things we didnt implement like planned in Prototyp:
 - Resultspage
 - Toolbar is seen in every exercise because it would have the same functionality like exit button, exit button isn't implementet as well.
 
->>>>>>> 41f4d86f86bf96ad2c4ba422e4999a0201209861
 
 ## Contributors
 - kakashxii
