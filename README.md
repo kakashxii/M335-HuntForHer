@@ -33,4 +33,3 @@ Things we didnt implement like planned in Prototyp:
 ## Contributors
 - kakashxii
 - bernaimeriii
-- thepaedu
